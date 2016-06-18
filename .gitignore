@@ -76,3 +76,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# soundcloud API key
+src/constants/auth.js
