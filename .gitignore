@@ -1,6 +1,10 @@
+# Created by https://www.gitignore.io/api/node,osx
+
+### Node ###
 # Logs
 logs
 *.log
+npm-debug.log*
 
 # Runtime data
 pids
@@ -12,6 +16,9 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+
+# nyc test coverage
+.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -25,6 +32,13 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
 
 #dist folder
 dist
@@ -35,5 +49,30 @@ dist
 #VSCode metadata
 .vscode
 
-# Mac files
-.DS_Store
+### OSX ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
