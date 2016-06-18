@@ -6,12 +6,14 @@ import HomePage from './components/HomePage';
 import FuelSavingsPage from './containers/FuelSavingsPage'; // eslint-disable-line import/no-named-as-default
 import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
+import SearchPage from './components/search/SearchPage';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
     <Route path="fuel-savings" component={FuelSavingsPage}/>
     <Route path="about" component={AboutPage}/>
+    <Route path="search" component={SearchPage}/>
     <Route path="*" component={NotFoundPage}/>
   </Route>
 );
