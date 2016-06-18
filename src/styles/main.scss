@@ -1,0 +1,133 @@
+// import helper sass files
+@import 'helpers/base';
+
+// import components
+@import 'components/base';
+
+// Global resets
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  width: 100%;
+  font-family: 'PT Sans', sans-serif;
+  background-color: main-color('background');
+}
+
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.main {
+  background-color: main-color('light');
+  padding: 1rem;
+}
+
+
+
+// generic sections
+.section-heading {
+  margin-bottom: .5rem;
+}
+
+.section-heading ul {
+  list-style: none;
+}
+
+.discovery-content {
+  margin-bottom: 1rem;
+}
+
+// generic LIST
+
+.generic-list {
+  list-style: none;
+
+  margin: 0 auto;
+  // padding: 1em;
+
+  @include clearfix;
+
+
+  // grid layout for images
+  li {
+    float: left;
+    display: inline-block;
+    width: grid-width('col-6', 1);
+    margin-left: 1%;
+    margin-bottom: 1%;
+  }
+  
+
+  // center images
+  li img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 549px) {
+  .generic-list {
+    // ensuring first element of each row has no margin-left
+    li:nth-child(2n + 1) {
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 550px) and (max-width: 799px) {
+  
+  // generic list grid
+  .generic-list {
+
+    li {
+      width: grid-width('col-4', 1);
+    }
+
+    li:nth-child(3n + 1) {
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1099px){
+  
+  // generic list grid
+  .generic-list {
+
+    li {
+      width: grid-width('col-3', 1);
+    }
+
+    li:nth-child(4n + 1) {
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  
+  // generic list grid
+  .generic-list {
+
+    li {
+      width: grid-width('col-2', 1);
+    }
+
+    li:nth-child(6n + 1) {
+      margin-left: 0;
+    }
+  }
+}

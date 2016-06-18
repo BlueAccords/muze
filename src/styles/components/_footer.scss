@@ -1,0 +1,11 @@
+footer {
+  margin: 0 auto;
+  display: block;
+  background-color: main-color('background-dark');
+  color: main-color('light');
+  text-align: center;
+  
+  h2 {
+    margin: 0 auto;
+  }
+}

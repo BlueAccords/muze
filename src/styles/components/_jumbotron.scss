@@ -1,0 +1,81 @@
+// jumbotron styling
+
+
+// jumbo text content
+.jumbo-content {
+  padding: 10rem 1rem;
+
+  background-image: url("https://placehold.it/1200x675"); 
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+
+  h1 {
+    font-size: 3em;
+  }
+}
+
+
+// MAIN SEARCH INPUT
+.search-bar {
+  background-color: main-color('primary');
+  padding: 1rem;
+
+  .search-input {
+    font-size: 1em;
+
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    // height: 2em;
+    max-width: 600px;
+
+  }
+}
+
+
+.jumbo-list {
+  list-style: none;
+
+  margin: 0 auto;
+  // padding: 1em;
+
+  @include clearfix;
+
+  // grid layout for jumbo options
+  li {
+    background-image: url("https://placehold.it/600x338"); 
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+
+    float: left;
+    display: inline-block;
+
+    height: 310px;
+    width: grid-width('col-6', 1);
+    margin-left: 1%;
+    margin-bottom: 1%;
+  }
+  
+
+  // center images
+  li a {
+    font-size: 2em;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.jumbo-list {
+    // ensuring first element of each row has no margin-left
+    li:nth-child(2n + 1) {
+      margin-left: 0;
+    }
+  }
+
+
+@media screen and (min-width: 200px) and (max-width: 549px) {
+  
+}

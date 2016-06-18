@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+// import { Link, IndexLink } from 'react-router';
+import Header from './common/Header';
+import Jumbotron from './home/Jumbotron';
 
 const App = (props) => {
   return (
     <div>
-      <IndexLink to="/">Home</IndexLink>
-      {' | '}
-      <Link to="/fuel-savings">Example App</Link>
-      {' | '}
-      <Link to="/about">About</Link>
+      <Header />
       <br/>
+      <Jumbotron />
       {props.children}
     </div>
   );

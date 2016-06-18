@@ -1,0 +1,24 @@
+// Example of defining a SET of clors
+// and retrieving it via function and sass's map-get function
+
+
+// aim for 4-7 colors
+$main-colors: (
+  'primary': #96C0B7, 
+  'accent': #FEF6C9,
+  'secondary': #D4DFC7,
+  'foreground': #878E88,
+  'foreground-light': #E3F2E5,
+  'background': #F1F1F1,
+  'background-dark': #332424,
+  'light': #FFFEF7,
+);
+
+// // Given
+@function main-color($key: 'primary') {
+	@return map-get($main-colors, $key);
+}
+
+
+// Max width
+$max-width: 1200px;
