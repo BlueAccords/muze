@@ -14,5 +14,13 @@ export default {
       annual: 0,
       threeYear: 0
     }
-  }
+  },
+  tracks: [
+    {
+      title: 'Hello Mei'
+    },
+    {
+      title: 'Clockworks'
+    }
+  ]
 };
