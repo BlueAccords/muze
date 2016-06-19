@@ -11,7 +11,6 @@ import initialState from './initialState';
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
 export default function tracksReducer(state = initialState.tracks, action) {
-  
   // switch actions
   switch (action.type) {
     // Set tracks ==============================================================
@@ -20,6 +19,15 @@ export default function tracksReducer(state = initialState.tracks, action) {
       
       return setTracks(state, action);
 
+    // Get Tracks SUCCESS ======================================================
+    /*
+      Handles the payload after api call to get a list of tracks from soundcloud
+      Returns a new state with the newly added tracks
+     */
+    case ActionTypes.GET_TRACKS_SUCCESS:
+      return Object.assign({}, state, {
+        tracks: action.tracks
+      });
     // default =================================================================
     default:
       return state;

@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import Track from './Track';
 
-const TrackList = ({tracks = []}) => {
+const TrackList = ({tracks}) => {
   return (
     <table className="table">
       <thead>
@@ -13,27 +13,12 @@ const TrackList = ({tracks = []}) => {
         </tr>
       </thead>
       <tbody>
-
-        {tracks.map((track, key) => 
-          <tr key={key}>
-            <td  className="track">{track.title}</td>
-          </tr>
+        {tracks.map((track) => 
+          <Track key={track.title} track={track}/>
         )}
       </tbody>
     </table>
   );
 };
 
-TrackList.propTypes = {
-  tracks: React.PropTypes.arrayOf(PropTypes.object)
-};
-
-function mapStateToProps(state) {
-  // The state for these are named in the reducerCombiner aka ./reducers/index.js
-  const tracks = state.tracks;
-  return {
-    tracks: state.tracks
-  };
-}
-
-export default connect(mapStateToProps)(TrackList);
+export default TrackList;

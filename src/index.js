@@ -16,6 +16,9 @@ import './styles/main.scss'; // Yep, that's right. You can import SASS/CSS files
 
 const store = configureStore();
 
+// get intial set of tracks on load
+store.dispatch(actions.getTracks());
+
 render(
   <Provider store={store}>
     <Router history={browserHistory} routes={routes} />

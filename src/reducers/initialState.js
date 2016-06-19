@@ -15,12 +15,5 @@ export default {
       threeYear: 0
     }
   },
-  tracks: [
-    {
-      title: 'Hello Mei'
-    },
-    {
-      title: 'Clockworks'
-    }
-  ]
+  tracks: []
 };
