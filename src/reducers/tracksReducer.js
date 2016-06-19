@@ -2,7 +2,7 @@
 import * as ActionTypes from '../constants/actionTypes';
 
 // lib to help with returning immutable objects
-// import objectAssign from 'object-assign';
+import objectAssign from 'object-assign';
 import initialState from './initialState';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -25,9 +25,7 @@ export default function tracksReducer(state = initialState.tracks, action) {
       Returns a new state with the newly added tracks
      */
     case ActionTypes.GET_TRACKS_SUCCESS:
-      return Object.assign({}, state, {
-        tracks: action.tracks
-      });
+      return action.tracks;
     // default =================================================================
     default:
       return state;

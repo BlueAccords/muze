@@ -49,7 +49,7 @@ class SearchPage extends Component {
         </div>
         <br/>
         <h1>Search Page</h1>
-        <TrackList tracks={tracks.tracks}/>
+        <TrackList tracks={tracks}/>
       </div>
     );
   }
