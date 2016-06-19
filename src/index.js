@@ -8,6 +8,9 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import * as actions from './actions/index.js';
 
+// soundcloud SDK
+import SC from 'soundcloud';
+
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import './styles/main.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 
