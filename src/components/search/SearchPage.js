@@ -1,8 +1,11 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import * as actions from '../actions/fuelSavingsActions';
-// import FuelSavingsForm from '../components/FuelSavingsForm';
+
+// bind actions to .actions from redux
+import {bindActionCreators} from 'redux';
+
+// import all actions
+import * as actions from '../../actions';
 import TrackList from './TrackList';
 
 const tracks = [
@@ -20,8 +23,13 @@ class SearchPage extends Component {
   }
 
   render () {
+    const {onAuth} = this.props;
     return (
       <div className="SearchPage">
+        <div>
+          <button onClick={onAuth} type="button">Login</button>
+        </div>
+        <br/>
         <h1>Search Page</h1>
         <TrackList tracks={tracks}/>
       </div>
@@ -41,11 +49,14 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(actions, dispatch)
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  debugger;
+  return {
+    // binding specific action to props.onAuth
+    onAuth: bindActionCreators(actions.auth, dispatch)
+  };
+}
 
 export default connect(
-  mapStateToProps)(SearchPage);
+  mapStateToProps,
+  mapDispatchToProps)(SearchPage);

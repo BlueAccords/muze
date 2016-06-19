@@ -1,7 +1,9 @@
 // Root file containing all actions so they can be exported all at once
 
+import {auth} from './auth';
 import { setTracks } from './trackActions';
 
 export {
-  setTracks
+  setTracks,
+  auth
 };
