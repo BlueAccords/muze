@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-// import CourseListRow from './CourseListRow';
+import {connect} from 'react-redux';
 
 const TrackList = ({tracks = []}) => {
   return (
@@ -28,4 +28,12 @@ TrackList.propTypes = {
   tracks: React.PropTypes.arrayOf(PropTypes.object)
 };
 
-export default TrackList;
+function mapStateToProps(state) {
+  // The state for these are named in the reducerCombiner aka ./reducers/index.js
+  const tracks = state.tracks;
+  return {
+    tracks: state.tracks
+  };
+}
+
+export default connect(mapStateToProps)(TrackList);
