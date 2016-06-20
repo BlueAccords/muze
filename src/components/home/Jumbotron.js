@@ -22,7 +22,8 @@ class Jumbotron extends Component {
         snippets from your favorite songs to build a playlist that you can listen to or share with your friends!</h3>
         <br/>
         <a className="btn" href="/search">Search Now!</a>
-        <a className="btn" href="">Source Code</a>
+        <br/>
+        <a className="btn" href="https://github.com/BlueAccords/muze">Source Code</a>
       </div>
       
       </section>
