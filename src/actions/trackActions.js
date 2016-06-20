@@ -22,7 +22,7 @@ export function getTracks(searchParams) {
 
     // returns a promise then handles it
     // catches error if an error occurs
-    return fetch(`http://api.soundcloud.com/tracks.json?client_id=${CLIENT_ID}&q=${searchParams}&limit=50&offset=0`)
+    return fetch(`https://api.soundcloud.com/tracks.json?client_id=${CLIENT_ID}&q=${searchParams}&limit=50&offset=0`)
       .then(response => response.json())
       .then(json => dispatch(getTracksSuccess(json)))
       .catch(error => {
