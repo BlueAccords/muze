@@ -21,8 +21,7 @@ class Jumbotron extends Component {
         <h3>Explore our music, powered by SoundCloud's API, and save
         snippets from your favorite songs to build a playlist that you can listen to or share with your friends!</h3>
         <br/>
-        <a className="btn" href="/search">Search Now!</a>
-        <br/>
+        <a style={{marginRight: 1 + 'rem'}} className="btn" href="/search">Search Now!</a>
         <a className="btn" href="https://github.com/BlueAccords/muze">Source Code</a>
       </div>
       
