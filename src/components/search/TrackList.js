@@ -6,9 +6,9 @@ const TrackList = ({tracks}) => {
     <table className="table">
       <thead>
         <tr>
+          <th>Art</th>
           <th>Title</th>
-          <th>Author</th>
-          <th>Category</th>
+          <th>Uploader</th>
           <th>Length</th>
         </tr>
       </thead>
