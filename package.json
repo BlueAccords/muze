@@ -27,13 +27,13 @@
   "dependencies": {
     "express": "4.14.0",
     "object-assign": "4.1.0",
-    "rimraf": "2.5.2",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
+    "rimraf": "2.5.2",
     "soundcloud": "3.1.2",
     "whatwg-fetch": "1.0.0"
   },
