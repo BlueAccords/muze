@@ -9,7 +9,6 @@ export function setTracks(tracks) {
 
 // Action payload for success on getting tracks
 export function getTracksSuccess(tracks) {
-  debugger;
   return {type: ActionTypes.GET_TRACKS_SUCCESS, tracks: tracks};
 }
 
