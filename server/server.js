@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-
+const cors = require('cors');
 module.exports = {
   app: function () {
     const app = express();
@@ -9,9 +9,11 @@ module.exports = {
     
     app.use(publicPath);
     console.log(indexPath);
-    app.get('/', function (req, res) {
+    app.get('*', function (req, res) {
       res.sendFile(indexPath) 
     });
+
+    app.use(cors())
 
     return app;
   }
