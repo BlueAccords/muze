@@ -5,7 +5,7 @@ const Track = ({track}) => {
   return (
     <tr>
       <td>
-        <img src={track.artwork_url} title="{track.title}"/>
+        <img src={replaceArtwork(track.artwork_url)} title={track.title}/>
       </td>
       <td>
         <a href={track.title} target="_blank">{track.title}</a>
@@ -32,7 +32,7 @@ function replaceArtwork(url) {
   const regx = /(-large)/;
   const str = url.replace(regx, "-crop");
 
-  return str;
+  return url;
 }
 
 // convert soundcloud milliseconds to minutes:seconds

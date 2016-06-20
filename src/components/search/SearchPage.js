@@ -45,7 +45,7 @@ class SearchPage extends Component {
   render () {
     const {tracks} = this.props;
     return (
-      <div className="SearchPage">
+      <div className="container SearchPage">
         <br/>
         <h1>Search Page</h1>
         <SearchForm 
