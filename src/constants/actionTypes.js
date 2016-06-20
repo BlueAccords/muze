@@ -1,4 +1,3 @@
-export const SAVE_FUEL_SAVINGS = 'SAVE_FUEL_SAVINGS';
-export const CALCULATE_FUEL_SAVINGS = 'CALCULATE_FUEL_SAVINGS';
+// Track Actions
 export const SET_TRACKS = 'SET_TRACKS';
 export const GET_TRACKS_SUCCESS = 'GET_TRACKS_SUCCESS';

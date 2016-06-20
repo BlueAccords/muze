@@ -25,6 +25,8 @@ export default function tracksReducer(state = initialState.tracks, action) {
       Returns a new state with the newly added tracks
      */
     case ActionTypes.GET_TRACKS_SUCCESS:
+      debugger;
+      if(action.tracks === undefined) return state;
       return action.tracks;
     // default =================================================================
     default:
