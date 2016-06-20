@@ -10,3 +10,18 @@
         clear: both;
     }
 }
+
+@function break-point($size) {
+
+  // Media Query Breakpoints
+  $breakpoints: (
+    small: 0px,
+    medium: 640px,
+    xmedium: 887px,
+    large: 1024px,
+    xlarge: 1200px,
+    xxlarge: 1440px,
+  );
+
+ @return map-get($breakpoints, $size);
+}

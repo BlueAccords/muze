@@ -20,7 +20,8 @@ class SearchPage extends Component {
     // Storing form data in local component state, no other components
     // need this data. Like. at all. Unless its submitted to them.
     this.state = {
-      search: ""
+      search: "",
+      results: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,8 +31,15 @@ class SearchPage extends Component {
   onSubmit(event) {
     event.preventDefault();
     
-    console.log(this.state.search)
-    this.props.actions.getTracks(this.state.search);
+
+    this.props.actions.getTracks(this.state.search)
+      .then(
+        this.setState({
+          results: true
+        })
+      );
+
+    
   }
   
   // Updates search state every keystroke(yes its pretty often)
@@ -51,8 +59,11 @@ class SearchPage extends Component {
         <SearchForm 
           onSubmit={this.onSubmit}
           onChange={this.updateSearchState}
-          searchValue = {this.state.search}/>
-        <TrackList tracks={tracks}/>
+          searchValue = {this.state.search}
+          />
+        <TrackList
+          tracks={tracks}
+          results={this.state.results}/>
       </div>
     );
   }

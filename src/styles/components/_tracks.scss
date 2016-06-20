@@ -1,13 +1,14 @@
 .table {
   // max width
-  max-width: 900px;
   margin: 0 auto;
   display: block;
 
+  // style table header rows
   thead tr {
     text-align: left;
   }
 
+  // style table headers
   thead tr th {
     color: #D5DDE5;
     background: #1b1e24;
@@ -26,6 +27,7 @@
     background: #EBEBEB;
   }
 
+  // style each table cell
   td {
     background:#FFFFFF;
     padding:20px;
@@ -36,6 +38,27 @@
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
   }
+}
+
+// Hide all columns by default
+.table {
+  thead tr th {
+    display: none;
+  }
+
+  tbody tr td {
+    display: none;
+  }
+
+}
+
+// hide table until a search is done
+.active-search {
+  display: block;
+}
+
+.inactive-search {
+  display: none;
 }
 
 // MAIN SEARCH INPUT
@@ -57,9 +80,22 @@
 }
 
 .btn {
-  padding: 1rem 2rem;
-  font-size: 2rem;
+  font-size: 100%;
+  padding: .5em 1em;
+  color: main-color('foreground');
+  background-color: main-color('primary');
+  border: 1px solid #999;
+  border: 0 rgba(0,0,0,0);
+  background-color: #E6E6E6;
+  text-decoration: none;
+  border-radius: 2px;
 }
+
+.btn:hover {
+  background-color:lighten( main-color('primary'), 15%);
+}
+
+
 
 .form-group {
   display: inline-block;
@@ -71,32 +107,16 @@
 }
 
 
-@media only screen and (min-width: 320px) {
+@media only screen and (min-width: 200px) {
 
   // Hide certain rows at specific screen widths
   .table {
-    thead tr th:nth-child(1) {
-      display: none;
+    thead tr th:nth-child(2) {
+      display: table-cell;
     }
 
-    tbody tr td:nth-child(1) {
-      display: none;
-    }
-
-    thead tr th:nth-child(3) {
-      display: none;
-    }
-
-    tbody tr td:nth-child(3) {
-      display: none;
-    }
-
-    thead tr th:nth-child(4) {
-      display: none;
-    }
-
-    tbody tr td:nth-child(4) {
-      display: none;
+    tbody tr td:nth-child(2) {
+      display: table-cell;
     }
   }
 }
@@ -133,6 +153,22 @@
     }
 
     tbody tr td:nth-child(3) {
+      display: table-cell;
+    }
+
+    thead tr th:nth-child(5) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(5) {
+      display: table-cell;
+    }
+
+    thead tr th:nth-child(6) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(6) {
       display: table-cell;
     }
   }

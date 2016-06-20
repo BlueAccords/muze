@@ -8,7 +8,7 @@ const Track = ({track}) => {
         <img src={replaceArtwork(track.artwork_url)} title={track.title}/>
       </td>
       <td>
-        <a href={track.title} target="_blank">{track.title}</a>
+        <a href={track.permalink_url} target="_blank">{track.title}</a>
       </td>
       <td>
         <span>
@@ -19,6 +19,12 @@ const Track = ({track}) => {
         <span>
           {convertToTime(track.duration)}
         </span>
+      </td>
+      <td>
+        <span>{track.genre}</span>
+      </td>
+      <td>
+        <span>{track.likes_count}</span>
       </td>
     </tr>
   );
