@@ -2,7 +2,7 @@
 import * as ActionTypes from '../constants/actionTypes';
 
 // lib to help with returning immutable objects
-import objectAssign from 'object-assign';
+// import objectAssign from 'object-assign';
 import initialState from './initialState';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -10,7 +10,7 @@ import initialState from './initialState';
 // create a copy of the state passed and set new values on the copy.
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
-export default function tracksReducer(state = initialState, action) {
+export default function tracksReducer(state = initialState.tracks, action) {
   // switch actions
   switch (action.type) {
 
@@ -34,8 +34,9 @@ export default function tracksReducer(state = initialState, action) {
   }
 }
 
+// Replace tracks in state with new tracks
 function setTracks(state, action) {
   const {tracks} = action;
-  return objectAssign({}, ...state, {tracks: tracks});
+  return tracks;
 }
 

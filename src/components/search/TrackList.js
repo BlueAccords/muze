@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track';
 
-const TrackList = ({tracks, results}) => {
+const TrackList = ({tracks}) => {
   let wrapperClass = "table container";
 
   return (

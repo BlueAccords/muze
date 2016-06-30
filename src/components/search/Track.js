@@ -35,8 +35,8 @@ const Track = ({track}) => {
 function replaceArtwork(url) {
   if(!url) return "http://placehold.it/100x100";
 
-  const regx = /(-large)/;
-  const str = url.replace(regx, "-crop");
+  // const regx = /(-large)/;
+  // const str = url.replace(regx, "-crop");
 
   return url;
 }
