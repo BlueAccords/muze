@@ -8,7 +8,7 @@ const AboutPage = () => {
       <h2 className="alt-header">About</h2>
       <p>
         This app is built using react/redux and its source code can be found
-         <a href="https://github.com/BlueAccords/muze">here</a>
+         <a href="https://github.com/BlueAccords/muze"> here</a>
       </p>
     </div>
   );

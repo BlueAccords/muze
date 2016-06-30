@@ -3,11 +3,6 @@ import Track from './Track';
 
 const TrackList = ({tracks, results}) => {
   let wrapperClass = "table container";
-  if (results) {
-    wrapperClass += " " + "active-search";
-  } else {
-    wrapperClass += " " + "inactive-search";
-  }
 
   return (
     <table className={wrapperClass}>
@@ -22,8 +17,8 @@ const TrackList = ({tracks, results}) => {
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track) => 
-          <Track key={track.title} track={track}/>
+        {tracks.map((track, key) =>
+          <Track key={key} track={track}/>
         )}
       </tbody>
     </table>

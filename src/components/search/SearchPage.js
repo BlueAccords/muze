@@ -16,7 +16,7 @@ import SearchForm from '../common/SearchForm';
 class SearchPage extends Component {
   constructor(props, context) {
     super(props, context);
-    
+
     // Storing form data in local component state, no other components
     // need this data. Like. at all. Unless its submitted to them.
     this.state = {
@@ -30,7 +30,7 @@ class SearchPage extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    
+
 
     this.props.actions.getTracks(this.state.search)
       .then(
@@ -38,10 +38,8 @@ class SearchPage extends Component {
           results: true
         })
       );
-
-    
   }
-  
+
   // Updates search state every keystroke(yes its pretty often)
   updateSearchState(event) {
     let search = event.target.value;
@@ -52,18 +50,23 @@ class SearchPage extends Component {
 
   render () {
     const {tracks} = this.props;
+
+
     return (
       <div className="container SearchPage">
         <br/>
         <h1>Search Page</h1>
-        <SearchForm 
+        <SearchForm
           onSubmit={this.onSubmit}
           onChange={this.updateSearchState}
           searchValue = {this.state.search}
           />
-        <TrackList
-          tracks={tracks}
-          results={this.state.results}/>
+        { this.state.results
+          ? <TrackList
+            tracks={tracks}
+            results={this.state.results}/>
+          : <h1>No results</h1>
+        }
       </div>
     );
   }
@@ -80,7 +83,7 @@ SearchPage.propTypes = {
 // Get tracks from src/index.js dispatching an action to load tracks into store's state
 function mapStateToProps(state) {
   return {
-    tracks: state.tracks,
+    tracks: state.tracks.tracks,
     search: {}
   };
 }
