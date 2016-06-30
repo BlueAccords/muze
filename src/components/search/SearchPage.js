@@ -47,6 +47,24 @@ class SearchPage extends Component {
     });
   }
 
+  // display results
+  // if none display nothing, else if loading results display spinner
+  displayResults(tracks, loading) {
+    if(loading) {
+      return (
+        <h1>Loadingu</h1>
+      );
+    } else if(!loading && tracks.length > 0 ) {
+      return (
+        <TrackList tracks={tracks} />
+      );
+    } else {
+      return (
+        <h1>No results</h1>
+      );
+    }
+  }
+
   render () {
     const {tracks, loading} = this.props;
 
@@ -60,8 +78,7 @@ class SearchPage extends Component {
           onChange={this.updateSearchState}
           searchValue = {this.state.search}
           />
-        {loading && <h1>loadingu</h1>}
-        {!loading && <TrackList tracks={tracks} />}
+        {this.displayResults(tracks, loading)}
 
 
       </div>
