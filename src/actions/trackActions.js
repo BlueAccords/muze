@@ -2,6 +2,9 @@
 import * as ActionTypes from '../constants/actionTypes';
 import {CLIENT_ID} from '../constants/auth';
 
+// import ajax status handlers
+import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
+
 // return action payload
 export function setTracks(tracks) {
   return {type: ActionTypes.SET_TRACKS, tracks};
@@ -13,11 +16,12 @@ export function getTracksSuccess(tracks) {
 }
 
 
+// api call to get tracks from soundcloud
 export function getTracks(searchParams) {
   return function(dispatch) {
     // ajax  status handler
-    // dispatch(beginAjaxCall());
-    
+    dispatch(beginAjaxCall());
+
     if(searchParams === undefined) dispatch(getTracksSuccess({}));
 
     // returns a promise then handles it
@@ -26,6 +30,7 @@ export function getTracks(searchParams) {
       .then(response => response.json())
       .then(json => dispatch(getTracksSuccess(json)))
       .catch(error => {
+        dispatch(catchAjaxCall(error))
       throw(error);
     });
   };

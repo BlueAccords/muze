@@ -3,6 +3,10 @@
 // import {auth} from './auth';
 import { setTracks, getTracks} from './trackActions';
 
+// ajax status
+import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
+
 export {
-  setTracks, getTracks
+  setTracks, getTracks,
+  beginAjaxCall, catchAjaxCall
 };

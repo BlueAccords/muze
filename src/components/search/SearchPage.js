@@ -28,7 +28,6 @@ class SearchPage extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextState);
     return true;
   }
 
@@ -36,10 +35,8 @@ class SearchPage extends Component {
     event.preventDefault();
 
 
-    this.props.actions.getTracks(this.state.search)
-      .then(
+    this.props.actions.getTracks(this.state.search);
 
-      );
   }
 
   // Updates search state every keystroke(yes its pretty often)
@@ -51,7 +48,7 @@ class SearchPage extends Component {
   }
 
   render () {
-    const {tracks} = this.props;
+    const {tracks, loading} = this.props;
 
 
     return (
@@ -63,9 +60,9 @@ class SearchPage extends Component {
           onChange={this.updateSearchState}
           searchValue = {this.state.search}
           />
-          <TrackList
-            tracks={tracks}
-          />
+        {loading && <h1>loadingu</h1>}
+        {!loading && <TrackList tracks={tracks} />}
+
 
       </div>
     );
@@ -84,7 +81,8 @@ SearchPage.propTypes = {
 function mapStateToProps(state) {
   return {
     tracks: state.tracks,
-    search: {}
+    search: {},
+    loading: state.ajaxStatus.tracks > 0
   };
 }
 
