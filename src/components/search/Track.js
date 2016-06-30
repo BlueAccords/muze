@@ -5,7 +5,7 @@ const Track = ({track}) => {
   return (
     <tr>
       <td>
-        <img src={replaceArtwork(track.artwork_url)} title={track.title}/>
+        <img className="track-art" src={replaceArtwork(track.artwork_url)} title={track.title}/>
       </td>
       <td>
         <a href={track.permalink_url} target="_blank">{track.title}</a>
