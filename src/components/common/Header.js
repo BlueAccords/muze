@@ -10,9 +10,9 @@ const Header = () => {
         <div className="nav-lg">
           <ul className="nav-lg-menu" id="main-menu">
             <li id="slide-menu-close-btn">&larr; Close Menu</li>
-            <li><a href="/">Home</a></li>
-            <li><a href="/About">About</a></li>
-            <li><a href="/Search">Search</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/search">Search</Link></li>
           </ul>
         </div>
 

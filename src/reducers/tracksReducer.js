@@ -27,7 +27,7 @@ export default function tracksReducer(state = initialState, action) {
      */
     case ActionTypes.GET_TRACKS_SUCCESS:
       if(action.tracks === undefined) return state;
-      return getTracksSuccess(state, action);
+      return setTracks(state, action);
     // default =================================================================
     default:
       return state;

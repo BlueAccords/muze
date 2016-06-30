@@ -28,6 +28,13 @@ class SearchPage extends Component {
     this.updateSearchState = this.updateSearchState.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps);
+    console.log(nextState);
+
+    return true;
+  }
+
   onSubmit(event) {
     event.preventDefault();
 
