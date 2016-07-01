@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import TextInput from '../common/TextInput';
 
@@ -6,7 +6,7 @@ const SearchForm = ({onSubmit, onChange, searchValue}) => {
     return (
       <div className="search-bar">
         <form onSubmit={onSubmit}>
-          <TextInput 
+          <TextInput
           name="searchInput"
           label=""
           onChange={onChange}
@@ -17,6 +17,12 @@ const SearchForm = ({onSubmit, onChange, searchValue}) => {
         </form>
       </div>
     );
+};
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  searchValue: PropTypes.string
 };
 
 export default SearchForm;

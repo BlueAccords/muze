@@ -25,7 +25,6 @@ export default function ajaxStatusReducer(state = initialState.ajaxStatus, actio
 
 // increment count of ajax actions in progress
 function incrementAjax(state, action) {
-  console.log(state.ajaxStatus);
   const ajaxCount = state.tracks + 1;
   return objectAssign({}, ...state,{
       tracks: ajaxCount

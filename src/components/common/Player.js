@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import * as actions from '../../actions';
+// import * as actions from '../../actions';
 
 import {CLIENT_ID} from '../../constants/auth';
 
@@ -30,8 +30,6 @@ class Player extends React.Component {
     } else {
       audioElement.pause();
     }
-
-    console.log('play was clicked');
   }
 
   handleSkip() {

@@ -17,7 +17,7 @@ export function getTracksSuccess(tracks) {
 
 // sets the active track
 export function setActiveTrack(track) {
- return {type: ActionTypes.SET_ACTIVE_TRACK, track: track}
+ return {type: ActionTypes.SET_ACTIVE_TRACK, track: track};
 }
 
 // api call to get tracks from soundcloud
@@ -34,7 +34,7 @@ export function getTracks(searchParams) {
       .then(response => response.json())
       .then(json => dispatch(getTracksSuccess(json)))
       .catch(error => {
-        dispatch(catchAjaxCall(error))
+        dispatch(catchAjaxCall(error));
       throw(error);
     });
   };
