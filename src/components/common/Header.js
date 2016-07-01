@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, IndexLink } from 'react-router';
+import {Link} from 'react-router';
 
 // Reusable header component, basic navigation
 const Header = () => {
