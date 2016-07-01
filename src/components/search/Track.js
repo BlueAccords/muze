@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {PropTypes}from 'react';
 // import {Link} from 'react-router';
 
-const Track = ({track}) => {
+const Track = ({track, playTrack}) => {
   return (
     <tr>
       <td>
         <img className="track-art" src={replaceArtwork(track.artwork_url)} title={track.title}/>
+        <svg className="icon icon-play3"><use onClick={ () => {playTrack(track)}} xlinkHref="#icon-play3"></use></svg>
       </td>
       <td>
         <a href={track.permalink_url} target="_blank">{track.title}</a>
@@ -43,10 +44,15 @@ function replaceArtwork(url) {
 
 // convert soundcloud milliseconds to minutes:seconds
 function convertToTime(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
+
+Track.propTypes = {
+  track: PropTypes.object,
+  playTrack: PropTypes.func.isRequired
+};
 
 
 export default Track;

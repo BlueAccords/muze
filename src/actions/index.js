@@ -1,12 +1,12 @@
 // Root file containing all actions so they can be exported all at once
 
 // import {auth} from './auth';
-import { setTracks, getTracks} from './trackActions';
+import { setTracks, getTracks, setActiveTrack } from './trackActions';
 
 // ajax status
 import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
 
 export {
-  setTracks, getTracks,
+  setTracks, getTracks, setActiveTrack,
   beginAjaxCall, catchAjaxCall
 };

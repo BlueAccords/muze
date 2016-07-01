@@ -25,10 +25,7 @@ class SearchPage extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.updateSearchState = this.updateSearchState.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
+    this.setActiveTrack = this.setActiveTrack.bind(this);
   }
 
   onSubmit(event) {
@@ -47,16 +44,27 @@ class SearchPage extends Component {
     });
   }
 
+  // sets the active track to the passed in track
+  // then plays the track in the player
+  setActiveTrack(track) {
+    this.props.actions.setActiveTrack(track);
+  }
+
   // display results
   // if none display nothing, else if loading results display spinner
   displayResults(tracks, loading) {
+
     if(loading) {
       return (
         <h1>Loadingu</h1>
       );
+    } else if(tracks === undefined) {
+      return (
+        <h1>No results found</h1>
+      );
     } else if(!loading && tracks.length > 0 ) {
       return (
-        <TrackList tracks={tracks} />
+        <TrackList tracks={tracks} onSetTrack={this.setActiveTrack}/>
       );
     } else {
       return (
@@ -64,6 +72,8 @@ class SearchPage extends Component {
       );
     }
   }
+
+
 
   render () {
     const {tracks, loading} = this.props;
@@ -89,15 +99,17 @@ class SearchPage extends Component {
 // prop validation
 SearchPage.propTypes = {
   actions: PropTypes.object,
-  fuelSavings: PropTypes.object,
   tracks: PropTypes.array,
-  search: PropTypes.object
+  search: PropTypes.object,
+  loading: PropTypes.bool.isRequired
 };
 
 // Get tracks from src/index.js dispatching an action to load tracks into store's state
 function mapStateToProps(state) {
+  const {tracks} = state.tracks;
+
   return {
-    tracks: state.tracks,
+    tracks,
     search: {},
     loading: state.ajaxStatus.tracks > 0
   };

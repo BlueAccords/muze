@@ -15,6 +15,10 @@ export function getTracksSuccess(tracks) {
   return {type: ActionTypes.GET_TRACKS_SUCCESS, tracks: tracks};
 }
 
+// sets the active track
+export function setActiveTrack(track) {
+ return {type: ActionTypes.SET_ACTIVE_TRACK, track: track}
+}
 
 // api call to get tracks from soundcloud
 export function getTracks(searchParams) {

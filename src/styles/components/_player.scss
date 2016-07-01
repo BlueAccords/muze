@@ -1,20 +1,30 @@
 .player {
-
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: main-color('primary');
 }
 
 .player-controls {
+  float: left;
   margin: 0 auto;
   max-width: $max-width;
 }
 
 // svg icon styles
 .icon {
+  cursor: pointer;
   display: inline-block;
-  width: 2em;
-  height: 2em;
+  width: 4rem;
+  height: 4rem;
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+
+
+  &:active {
+    fill: darken(main-color('secondary'), 15%);
+  }
 }
 
 .icon-volume-high {

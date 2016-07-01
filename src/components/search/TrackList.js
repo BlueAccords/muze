@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Track from './Track';
 
-const TrackList = ({tracks}) => {
+const TrackList = ({tracks, onSetTrack}) => {
   let wrapperClass = "table container";
 
   return (
@@ -18,11 +18,16 @@ const TrackList = ({tracks}) => {
       </thead>
       <tbody>
         {tracks.map((track, key) =>
-          <Track key={key} track={track}/>
+          <Track key={key} track={track} playTrack={onSetTrack}/>
         )}
       </tbody>
     </table>
   );
+};
+
+TrackList.propTypes = {
+  tracks: PropTypes.arrayOf(PropTypes.object),
+  onSetTrack: PropTypes.func.isRequired
 };
 
 export default TrackList;

@@ -2,7 +2,7 @@
 import * as ActionTypes from '../constants/actionTypes';
 
 // lib to help with returning immutable objects
-// import objectAssign from 'object-assign';
+import objectAssign from 'object-assign';
 import initialState from './initialState';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -10,17 +10,13 @@ import initialState from './initialState';
 // create a copy of the state passed and set new values on the copy.
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
-export default function tracksReducer(state = initialState.tracks, action) {
+export default function tracksReducer(state = initialState, action) {
   // switch actions
   switch (action.type) {
 
     // Set tracks ==============================================================
     case ActionTypes.SET_TRACKS:
-      // Use redux thunk here to make async call
-
       return setTracks(state, action);
-
-    // Get Tracks SUCCESS ======================================================
     /*
       Handles the payload after api call to get a list of tracks from soundcloud
       Returns a new state with the newly added tracks
@@ -28,7 +24,8 @@ export default function tracksReducer(state = initialState.tracks, action) {
     case ActionTypes.GET_TRACKS_SUCCESS:
       if(action.tracks === undefined) return state;
       return setTracks(state, action);
-    // default =================================================================
+    case ActionTypes.SET_ACTIVE_TRACK:
+      return setActiveTrack(state, action);
     default:
       return state;
   }
@@ -37,6 +34,15 @@ export default function tracksReducer(state = initialState.tracks, action) {
 // Replace tracks in state with new tracks
 function setTracks(state, action) {
   const {tracks} = action;
-  return tracks;
+
+  return objectAssign({}, ...state, {
+    tracks: tracks
+  });
 }
 
+function setActiveTrack(state, action) {
+  const {track} = action;
+  return objectAssign({}, state, {
+    activeTrack: track
+  });
+}
