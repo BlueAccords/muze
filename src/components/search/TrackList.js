@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Track from './Track';
 
-const TrackList = ({tracks}) => {
+const TrackList = ({tracks, onSetTrack}) => {
+  let wrapperClass = "table container";
+
   return (
-    <table className="table">
+    <table className={wrapperClass}>
       <thead>
         <tr>
+          <th>Art</th>
           <th>Title</th>
-          <th>Author</th>
-          <th>Category</th>
+          <th>Uploader</th>
           <th>Length</th>
+          <th>Genre</th>
+          <th>Likes</th>
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track) => 
-          <Track key={track.title} track={track}/>
+        {tracks.map((track, key) =>
+          <Track key={key} track={track} playTrack={onSetTrack}/>
         )}
       </tbody>
     </table>
   );
+};
+
+TrackList.propTypes = {
+  tracks: PropTypes.arrayOf(PropTypes.object),
+  onSetTrack: PropTypes.func.isRequired
 };
 
 export default TrackList;

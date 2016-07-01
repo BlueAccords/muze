@@ -5,7 +5,7 @@
 .jumbo-content {
   padding: 10rem 1rem;
 
-  background-image: url("https://placehold.it/1200x675"); 
+  background-color: main-color('foreground-light');
   background-size: cover;
   background-repeat:no-repeat;
   background-position: center center;
@@ -14,25 +14,6 @@
     font-size: 3em;
   }
 }
-
-
-// MAIN SEARCH INPUT
-.search-bar {
-  background-color: main-color('primary');
-  padding: 1rem;
-
-  .search-input {
-    font-size: 1em;
-
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    // height: 2em;
-    max-width: 600px;
-
-  }
-}
-
 
 .jumbo-list {
   list-style: none;

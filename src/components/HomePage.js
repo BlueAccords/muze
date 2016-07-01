@@ -6,7 +6,6 @@ import Jumbotron from './home/Jumbotron';
 const HomePage = () => {
   return (
     <div>
-      <h1>HomePage.js</h1>
       <Jumbotron />
     </div>
   );

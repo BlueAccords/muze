@@ -1,0 +1,182 @@
+.table {
+  // max width
+  margin: 0 auto;
+  display: block;
+
+  // style table header rows
+  thead tr {
+    text-align: left;
+  }
+
+  // style table headers
+  thead tr th {
+    color: #D5DDE5;
+    background: #1b1e24;
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size: 1rem;
+    font-weight: 100;
+    padding: 24px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+  }
+
+  // color ever odd child differently
+  tr:nth-child(odd) {
+    background: #EBEBEB;
+  }
+
+  // style each table cell
+  td {
+    background:#FFFFFF;
+    padding:20px;
+    text-align:left;
+    vertical-align:middle;
+    font-weight:300;
+    font-size:18px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+  }
+}
+
+// Hide all columns by default
+.table {
+  thead tr th {
+    display: none;
+  }
+
+  tbody tr td {
+    display: none;
+  }
+
+}
+
+// hide table until a search is done
+.active-search {
+  display: block;
+}
+
+.inactive-search {
+  display: none;
+}
+
+// MAIN SEARCH INPUT
+.search-bar {
+  background-color: main-color('primary');
+  padding: 1rem;
+
+  .search-input {
+
+    font-size: 1em;
+
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    // height: 2em;
+    // max-width: 600px;
+
+  }
+}
+
+// individual track art
+.track-art {
+
+}
+
+
+.btn {
+  font-size: 100%;
+  padding: .5em 1em;
+  color: main-color('foreground');
+  background-color: main-color('primary');
+  border: 1px solid #999;
+  border: 0 rgba(0,0,0,0);
+  background-color: #E6E6E6;
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background-color:lighten( main-color('primary'), 15%);
+}
+
+
+
+.form-group {
+  display: inline-block;
+  width: 80%;
+}
+
+.submit-btn {
+  margin-left: 1rem;
+  display: inline-block;
+}
+
+
+@media only screen and (min-width: 200px) {
+
+  // Hide certain rows at specific screen widths
+  .table {
+    thead tr th:nth-child(2) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(2) {
+      display: table-cell;
+    }
+  }
+}
+
+@media only screen and (min-width: 560px) {
+  .table {
+    thead tr th:nth-child(1) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(1) {
+      display: table-cell;
+    }
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  .table {
+    thead tr th:nth-child(4) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(4) {
+      display: table-cell;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .table {
+    thead tr th:nth-child(3) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(3) {
+      display: table-cell;
+    }
+
+    thead tr th:nth-child(5) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(5) {
+      display: table-cell;
+    }
+
+    thead tr th:nth-child(6) {
+      display: table-cell;
+    }
+
+    tbody tr td:nth-child(6) {
+      display: table-cell;
+    }
+  }
+}

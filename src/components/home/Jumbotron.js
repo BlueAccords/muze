@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import {connect} from 'react-redux';
 
 class Jumbotron extends Component {
+  constructor(props, context) {
+    super(props, context); 
+
+    this.redirectToSearch = this.redirectToSearch.bind(this);
+  }
+
+  redirectToSearch(event) {
+    event.preventDefault();
+    this.context.router.push('/search');
+  }
+
   render() {
     return (
       <section className="container jumbotron">
@@ -9,18 +20,19 @@ class Jumbotron extends Component {
         <h1>Hello, and Welcome to Muze</h1>
         <h3>Explore our music, powered by SoundCloud's API, and save
         snippets from your favorite songs to build a playlist that you can listen to or share with your friends!</h3>
+        <br/>
+        <a style={{marginRight: 1 + 'rem'}} className="btn" href="/search">Search Now!</a>
+        <a className="btn" href="https://github.com/BlueAccords/muze">Source Code</a>
       </div>
-
-      <div className="search-bar">
-        <input 
-          className="search-input"
-          type="text"
-          placeholder="Search for songs, artists, and albums..." />
-      </div>
+      
       </section>
     );
   }
 }
+
+Jumbotron.contextTypes = {
+  router: PropTypes.object
+};
 
 /**
  * this function defines an object that returns what properties

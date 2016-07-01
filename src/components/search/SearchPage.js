@@ -16,7 +16,7 @@ import SearchForm from '../common/SearchForm';
 class SearchPage extends Component {
   constructor(props, context) {
     super(props, context);
-    
+
     // Storing form data in local component state, no other components
     // need this data. Like. at all. Unless its submitted to them.
     this.state = {
@@ -25,15 +25,17 @@ class SearchPage extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.updateSearchState = this.updateSearchState.bind(this);
+    this.setActiveTrack = this.setActiveTrack.bind(this);
   }
 
   onSubmit(event) {
     event.preventDefault();
-    
-    console.log(this.state.search)
+
+
     this.props.actions.getTracks(this.state.search);
+
   }
-  
+
   // Updates search state every keystroke(yes its pretty often)
   updateSearchState(event) {
     let search = event.target.value;
@@ -42,17 +44,53 @@ class SearchPage extends Component {
     });
   }
 
+  // sets the active track to the passed in track
+  // then plays the track in the player
+  setActiveTrack(track) {
+    this.props.actions.setActiveTrack(track);
+  }
+
+  // display results
+  // if none display nothing, else if loading results display spinner
+  displayResults(tracks, loading) {
+
+    if(loading) {
+      return (
+        <h1>Loadingu</h1>
+      );
+    } else if(tracks === undefined) {
+      return (
+        <h1>No results found</h1>
+      );
+    } else if(!loading && tracks.length > 0 ) {
+      return (
+        <TrackList tracks={tracks} onSetTrack={this.setActiveTrack}/>
+      );
+    } else {
+      return (
+        <h1>No results</h1>
+      );
+    }
+  }
+
+
+
   render () {
-    const {tracks} = this.props;
+    const {tracks, loading} = this.props;
+
+
     return (
-      <div className="SearchPage">
+      <div className="container SearchPage">
         <br/>
         <h1>Search Page</h1>
-        <SearchForm 
+        <SearchForm
           onSubmit={this.onSubmit}
           onChange={this.updateSearchState}
-          searchValue = {this.state.search}/>
-        <TrackList tracks={tracks}/>
+          searchValue = {this.state.search}
+          />
+        {this.displayResults(tracks, loading)}
+
+
       </div>
     );
   }
@@ -61,16 +99,19 @@ class SearchPage extends Component {
 // prop validation
 SearchPage.propTypes = {
   actions: PropTypes.object,
-  fuelSavings: PropTypes.object,
   tracks: PropTypes.array,
-  search: PropTypes.object
+  search: PropTypes.object,
+  loading: PropTypes.bool.isRequired
 };
 
 // Get tracks from src/index.js dispatching an action to load tracks into store's state
 function mapStateToProps(state) {
+  const {tracks} = state.tracks;
+
   return {
-    tracks: state.tracks,
-    search: {}
+    tracks,
+    search: {},
+    loading: state.ajaxStatus.tracks > 0
   };
 }
 

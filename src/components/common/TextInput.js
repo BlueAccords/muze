@@ -15,7 +15,7 @@ const TextInput = ({name, label, onChange, placeholder, value, error}) => {
         <input
           type="text"
           name={name}
-          className="form-control"
+          className="search-input"
           placeholder={placeholder}
           value={value}
           onChange={onChange}

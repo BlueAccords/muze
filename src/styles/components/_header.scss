@@ -1,3 +1,187 @@
+// Base styling for header
+
 header {
-  text-align: left;
+  background-color: main-color('primary');
+}
+
+nav {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: .5rem 1rem;
+  
+  // Used so children can center using vertical-align: middle;
+  line-height: 2rem;
+
+  @include clearfix;
+}
+
+// Hide desktop nav by default
+.nav-lg {
+}
+
+
+// Mobile nav
+.header-title {
+  font-weight: 100;
+  float: left;
+  margin: 0 auto;
+  color: main-color('foreground-light');
+}
+
+// Main Menu(hidden by default)
+#main-menu {
+  background-color: main-color('foreground-light');
+
+  // Center text
+  text-align: center;
+
+  // Fixed + coordinates to be in top left of screen
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  // Z-index to make sure menu is on top of other elements
+  z-index: 200;
+
+  transition: transform 0.3s;
+  /* Set height to 100% of available space */
+  height: 100%;
+  width: 80vw;
+  overflow-y: scroll;
+  // Make sure menu is hidden and to the left by default
+  transform: translateX(-100%);
+
+  // Show mobile menu on screen after .is-active class is added to it via js event
+  &.is-active {
+    transform: translateX(0);
+  }
+
+  // Link styling
+  li a {
+    &:visited,
+    &:link {
+      color: main-color('background-dark');
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:active {
+      color: lighten(main-color('background-dark'), 15%);
+    }
+  }
+}
+
+// Exit button
+#slide-menu-close-btn {
+   border: none;
+   background-color: main-color('foreground-light');
+}
+
+
+// Hamburger Button
+#hamburger-button {
+  display: block;
+  // margin-top: .35rem;
+  cursor:pointer;
+
+  /* Float right side of screen */
+  float: right;
+  vertical-align: middle;
+  
+  // Stabalize color to match header bg color
+  // and have no extra borders
+  background-color: main-color('background');
+  border: none;
+
+
+  // Hamburger menu
+  .icon-bar {
+    margin: 0 auto 3px;
+    background-color: main-color('primary');
+    display: block;
+    width: 22px;
+    height: 5px;
+    border-radius: 1px;
+  }
+
+  /* Eliminate button styling on click */
+  &:focus {
+    outline: none;
+    // Used to make bg the same as header color so color doesnt change to default of white
+    background-color: main-color('background-dark');
+  }
+  &:hover {   
+    cursor:pointer;
+    outline: none;
+    border:none;
+  }
+
+  &:active {   
+    cursor:pointer;
+    outline: none;
+    border:none;
+    appearance: button;
+  }
+}
+
+@media only screen and (min-width: break-point(xmedium)) {
+
+  // Main Menu
+  // Default Desktop Styling
+  #main-menu {
+    display: block;
+    position: relative;
+    height: auto;
+    width: auto;
+    overflow-y: visible;
+    transform: none;
+
+    // Reset color to default
+    background-color: inherit;
+  }
+
+  // Link styling
+  #main-menu li {
+    a:visited,
+    a:link {
+      font-weight: 100;
+      color: main-color('background-dark');
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:active {
+      color: lighten(main-color('background-dark'), 15%);
+    }
+  }
+
+  #slide-menu-close-btn {
+    display: none;
+  }
+
+  #hamburger-button {
+    display: none;
+  }
+  
+  // desktop nav
+  .nav-lg {
+    display: block;
+  }
+
+  .nav-lg-menu {
+    padding: 0;
+    list-style: none;
+    float: right;
+  } 
+
+  .nav-lg-menu li {
+    vertical-align: middle;
+    display: inline-block;
+
+    margin-left: 1em;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 }
