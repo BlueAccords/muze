@@ -1,6 +1,8 @@
 export default {
-  tracks: [],
-  activeTrack: {},
+  tracks: {
+    tracks: [],
+    activeTrack: {}
+  },
   ajaxStatus: {
     tracks: 0
   }
