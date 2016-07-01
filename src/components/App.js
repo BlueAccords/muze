@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 // import { Link, IndexLink } from 'react-router';
 import Header from './common/Header';
+import Player from './common/Player';
+import SvgDefinitions from './common/SvgDefinitions';
 
 const App = (props) => {
   return (
     <div>
+      <SvgDefinitions />
       <Header />
       <br/>
       {props.children}
+      <Player />
     </div>
   );
 };
