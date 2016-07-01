@@ -11,20 +11,6 @@
     }
 }
 
-@mixin playShape {
-  display: block;
-  position: relative;
-  border-color: transparent black;
-  border-style: solid;
-  border-color: transparent black;
-  border-width: 20px 0px 20px 35px;
-
-  &:hover {
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-    border-color: transparent blue;
-  }
-}
 
 @function break-point($size) {
 
