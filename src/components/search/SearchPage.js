@@ -1,4 +1,5 @@
 import React, {PropTypes, Component} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
 
@@ -47,7 +48,11 @@ class SearchPage extends Component {
   // sets the active track to the passed in track
   // then plays the track in the player
   setActiveTrack(track) {
+    // const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
     this.props.actions.setActiveTrack(track);
+    this.props.actions.togglePlaying(false);
+    // audioElement.play();
   }
 
   // display results

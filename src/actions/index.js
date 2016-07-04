@@ -4,13 +4,13 @@
 import { setTracks, getTracks, setActiveTrack } from './trackActions';
 
 // player actions
-import { togglePlayer } from './playerActions';
+import { togglePlaying } from './playerActions';
 
 // ajax status
 import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
 
 export {
   setTracks, getTracks, setActiveTrack,
-  togglePlayer,
+  togglePlaying,
   beginAjaxCall, catchAjaxCall
 };

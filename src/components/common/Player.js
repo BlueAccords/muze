@@ -9,29 +9,55 @@ class Player extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handlePlay = this.handlePlay.bind(this);
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleSkip = this.handleSkip.bind(this);
     this.displayTrackInfo = this.displayTrackInfo.bind(this);
+    this.handleAudioPlayed = this.handleAudioPlayed.bind(this);
+    this.handleAudioPaused = this.handleAudioPaused.bind(this);
   }
 
-  handlePlay() {
-    // find audio player component
+  // Lifecycle components
+  componentDidMount() {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+    audioElement.addEventListener('play', this.handleAudioPlayed, false);
+    audioElement.addEventListener('pause', this.handleAudioPaused, false);
+  }
+
+  // compare changed activeTrack and automaticaly play song if activeTrack is different
+  // from the previous
+  componentDidUpdate(prevProps) {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+    if(this.props.activeTrack && this.props.activeTrack !== prevProps.activeTrack) {
+      audioElement.play();
+    }
+  }
+
+  // toggle redux store to show audio is playing
+  // should only change if an active track is available
+  handleAudioPlayed() {
+    const { activeTrack } = this.props;
+    if(activeTrack) this.props.actions.togglePlaying(true);
+  }
+  
+  // toggle redux store playing state to pause
+  handleAudioPaused() {
+    const { activeTrack } = this.props;
+    if(activeTrack) this.props.actions.togglePlaying(false);
+  }
+
+  // toggle audio element playing/pause if possible
+  handleTogglePlay() {
     const audioElement = ReactDOM.findDOMNode(this.refs.audio);
 
     // if not found return nothing
     if (!audioElement) { return; }
+    const { playing, activeTrack } = this.props;
 
-    // else get active track from props
-    const { activeTrack } = this.props;
-    const { playing } = this.props;
-
-    // if an active track is found then play else pause
     if (playing && activeTrack) {
       audioElement.pause();
-      this.props.actions.togglePlayer(false);
     } else if(!playing && activeTrack){
       audioElement.play();
-      this.props.actions.togglePlayer(true);
     }
   }
 
@@ -47,7 +73,6 @@ class Player extends React.Component {
         <div className="track-info">
           <h3>{track.title}</h3>
           <h4>{track.user.username}</h4>
-          <audio ref="audio" src={`${track.stream_url}?client_id=${CLIENT_ID}`}></audio>
         </div>
       );
     } else if(track === undefined) {
@@ -67,13 +92,14 @@ class Player extends React.Component {
         <div className="player-controls">
           <svg className="icon icon-backward2"><use onClick={this.handleSkip} xlinkHref="#icon-backward2"></use></svg>
           {playing
-          ? <svg onClick={this.handlePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
-          : <svg onClick={this.handlePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
+          ? <svg onClick={this.handleTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
+          : <svg onClick={this.handleTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
           }
 
           <svg className="icon icon-forward3"><use onClick={this.handleSkip} xlinkHref="#icon-forward3"></use></svg>
         </div>
         <div className="active-track-container">
+          <audio ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio>
           {this.displayTrackInfo(activeTrack)}
         </div>
       </div>
