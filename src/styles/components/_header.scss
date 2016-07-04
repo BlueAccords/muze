@@ -60,13 +60,13 @@ nav {
   li a {
     &:visited,
     &:link {
-      color: main-color('background-dark');
+      color: main-color('foreground-light');
       text-decoration: none;
     }
 
     &:hover,
     &:active {
-      color: lighten(main-color('background-dark'), 15%);
+      color: darken(main-color('foreground-light'), 15%);
     }
   }
 }
@@ -145,13 +145,13 @@ nav {
     a:visited,
     a:link {
       font-weight: 100;
-      color: main-color('background-dark');
+      color: main-color('foreground-light');
       text-decoration: none;
     }
 
     a:hover,
     a:active {
-      color: lighten(main-color('background-dark'), 15%);
+      color: darken(main-color('foreground-light'), 15%);
     }
   }
 

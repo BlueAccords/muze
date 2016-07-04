@@ -48,7 +48,7 @@ class SearchPage extends Component {
   // sets the active track to the passed in track
   // then plays the track in the player
   setActiveTrack(track) {
-    this.props.actions.setActiveTrack(track);
+    if(this.props.activeTrack !== track) this.props.actions.setActiveTrack(track);
   }
 
   // display results

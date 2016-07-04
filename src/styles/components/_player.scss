@@ -27,6 +27,24 @@
   }
 }
 
+// player icons
+.player .icon {
+  fill: main-color('foreground-light');
+}
+
+// search results icons
+.table .icon {
+  position: relative;
+  bottom: 5.5rem;
+  left: 1.5rem;
+  fill: white;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+    fill: main-color('foreground-light');
+  }
+}
+
 .icon-volume-high {
   width: 1.0625em;
 }
@@ -41,5 +59,6 @@
 
 .track-info {
   margin-top: .75rem;
+  color: main-color('foreground-light');
 }
 
