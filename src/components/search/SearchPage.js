@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
 
@@ -48,11 +48,7 @@ class SearchPage extends Component {
   // sets the active track to the passed in track
   // then plays the track in the player
   setActiveTrack(track) {
-    // const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-
     this.props.actions.setActiveTrack(track);
-    this.props.actions.togglePlaying(false);
-    // audioElement.play();
   }
 
   // display results
@@ -109,12 +105,15 @@ SearchPage.propTypes = {
   loading: PropTypes.bool.isRequired
 };
 
-// Get tracks from src/index.js dispatching an action to load tracks into store's state
+// Get tracks from src/index.js dispatching an action to load tracks into store's state or
+// directly from redux store
 function mapStateToProps(state) {
-  const {tracks} = state.tracks;
-
+  const {tracks, activeTrack} = state.tracks;
+  const isPlaying = state.player.playing;
   return {
     tracks,
+    isPlaying,
+    activeTrack,
     search: {},
     loading: state.ajaxStatus.tracks > 0
   };
