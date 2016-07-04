@@ -19,8 +19,18 @@ class Player extends React.Component {
   // Lifecycle components
   componentDidMount() {
     const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+    // update ui icons based on audio element changes directly
     audioElement.addEventListener('play', this.handleAudioPlayed, false);
     audioElement.addEventListener('pause', this.handleAudioPaused, false);
+  }
+
+  // clean up event listeners on dismount
+  componentWillUnmount() {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+    audioElement.removeEventListener('play', this.handleAudioPlayed, false);
+    audioElement.removeEventListener('pause', this.handleAudioPaused, false);
   }
 
   // compare changed activeTrack and automaticaly play song if activeTrack is different
@@ -32,7 +42,6 @@ class Player extends React.Component {
       audioElement.play();
     }
   }
-
   // toggle redux store to show audio is playing
   // should only change if an active track is available
   handleAudioPlayed() {
