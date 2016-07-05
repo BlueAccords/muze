@@ -5,7 +5,11 @@ import * as ActionTypes from '../constants/actionTypes';
 import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
 
 // try to get local api key or from env
-const CLIENT_ID = require('../constants/auth').CLIENT_ID || proces.env.SC_KEY;
+if(process.env.NODE_ENV === 'production') {
+  var CLIENT_ID = process.env.SC_KEY;
+} else {
+  var CLIENT_ID = require('../constants/auth');
+}
 
 // return action payload
 export function setTracks(tracks) {

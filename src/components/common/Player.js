@@ -4,8 +4,12 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import {bindActionCreators} from 'redux';
 
-const CLIENT_ID = require('../constants/auth') || proces.env.SC_KEY;
-
+// try to get local api key or from env
+if(process.env.NODE_ENV === 'production') {
+  var CLIENT_ID = process.env.SC_KEY;
+} else {
+  var CLIENT_ID = require('../../constants/auth');
+}
 
 class Player extends React.Component {
   constructor(props, context) {
