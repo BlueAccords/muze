@@ -1,9 +1,11 @@
 // All actions pertaining to tracks
 import * as ActionTypes from '../constants/actionTypes';
-import {CLIENT_ID} from '../constants/auth';
 
 // import ajax status handlers
 import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
+
+// try to get local api key or from env
+const CLIENT_ID = require('../constants/auth').CLIENT_ID || proces.env.SC_KEY;
 
 // return action payload
 export function setTracks(tracks) {

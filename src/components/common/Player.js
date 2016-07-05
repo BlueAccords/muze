@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import {bindActionCreators} from 'redux';
-import {CLIENT_ID} from '../../constants/auth';
+
+const CLIENT_ID = require('../constants/auth') || proces.env.SC_KEY;
+
 
 class Player extends React.Component {
   constructor(props, context) {
