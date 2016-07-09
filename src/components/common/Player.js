@@ -101,6 +101,12 @@ class Player extends React.Component {
     }
   }
 
+  // convert soundcloud milliseconds to seconds
+  convertToSeconds(millis) {
+    const seconds = (millis / 1000).toFixed(0);
+    return seconds;
+  }
+
   render() {
     const {activeTrack, playing} = this.props;
 
@@ -118,6 +124,7 @@ class Player extends React.Component {
         <div className="active-track-container">
           <audio ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio>
           {this.displayTrackInfo(activeTrack)}
+          <input className="seek-slider" type="range" value="0" min="0" max={this.convertToSeconds(activeTrack.duration)} />
         </div>
       </div>
     );
