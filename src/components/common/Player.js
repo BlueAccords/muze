@@ -5,11 +5,12 @@ import * as actions from '../../actions';
 import {bindActionCreators} from 'redux';
 
 // try to get local api key or from env
-if(process.env.NODE_ENV === 'production') {
-  var CLIENT_ID = process.env.SC_KEY;
-} else {
-  var CLIENT_ID = require('../../constants/auth');
-}
+// if(process.env.NODE_ENV === 'production') {
+//   var CLIENT_ID = process.env.SC_KEY;
+// } else {
+//   var CLIENT_ID = require('../../constants/auth').CLIENT_ID;
+// }
+import { CLIENT_ID } from '../../constants/auth';
 
 class Player extends React.Component {
   constructor(props, context) {
@@ -31,14 +32,6 @@ class Player extends React.Component {
     audioElement.addEventListener('pause', this.handleAudioPaused, false);
   }
 
-  // clean up event listeners on dismount
-  componentWillUnmount() {
-    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-
-    audioElement.removeEventListener('play', this.handleAudioPlayed, false);
-    audioElement.removeEventListener('pause', this.handleAudioPaused, false);
-  }
-
   // compare changed activeTrack and automaticaly play song if activeTrack is different
   // from the previous
   componentDidUpdate(prevProps) {
@@ -48,6 +41,15 @@ class Player extends React.Component {
       audioElement.play();
     }
   }
+
+  // clean up event listeners on dismount
+  componentWillUnmount() {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+    audioElement.removeEventListener('play', this.handleAudioPlayed, false);
+    audioElement.removeEventListener('pause', this.handleAudioPaused, false);
+  }
+
   // toggle redux store to show audio is playing
   // should only change if an active track is available
   handleAudioPlayed() {
