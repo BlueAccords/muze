@@ -16,11 +16,20 @@ class Player extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // local player state
+    this.state = {
+      currentAudioTime: 0
+    };
+
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleSkip = this.handleSkip.bind(this);
     this.displayTrackInfo = this.displayTrackInfo.bind(this);
     this.handleAudioPlayed = this.handleAudioPlayed.bind(this);
     this.handleAudioPaused = this.handleAudioPaused.bind(this);
+    this.handleAudioTimeUpdate = this.handleAudioTimeUpdate.bind(this);
+    this.handleSeeked = this.handleSeeked.bind(this);
+    this.handleAudioTimeUpdate = this.handleAudioTimeUpdate.bind(this);
+    this.onSeekbarChange = this.onSeekbarChange.bind(this);
   }
 
   // Lifecycle components
@@ -30,10 +39,12 @@ class Player extends React.Component {
     // update ui icons based on audio element changes directly
     audioElement.addEventListener('play', this.handleAudioPlayed, false);
     audioElement.addEventListener('pause', this.handleAudioPaused, false);
+    audioElement.addEventListener('timeupdate', this.handleAudioTimeUpdate, false);
+    audioElement.addEventListener('seeked', this.handleSeeked, false);
   }
 
   // compare changed activeTrack and automaticaly play song if activeTrack is different
-  // from the previous
+  // from the previous;
   componentDidUpdate(prevProps) {
     const audioElement = ReactDOM.findDOMNode(this.refs.audio);
 
@@ -48,6 +59,7 @@ class Player extends React.Component {
 
     audioElement.removeEventListener('play', this.handleAudioPlayed, false);
     audioElement.removeEventListener('pause', this.handleAudioPaused, false);
+    // TODO: remove event listeners
   }
 
   // toggle redux store to show audio is playing
@@ -61,6 +73,13 @@ class Player extends React.Component {
   handleAudioPaused() {
     const { activeTrack } = this.props;
     if(activeTrack) this.props.actions.togglePlaying(false);
+  }
+
+  handleAudioTimeUpdate(e) {
+    let time = Math.floor(e.target.currentTime);
+    this.setState({
+      currentAudioTime: time
+    });
   }
 
   // toggle audio element playing/pause if possible
@@ -80,6 +99,15 @@ class Player extends React.Component {
 
   handleSkip() {
     console.log('skip was clicked');
+  }
+
+  // handles event for when audio element's time is changed via a seek event.
+  // should update component state to reflect change
+  handleSeeked(e) {
+    let changedTime = e.target.currentTime;
+    this.setState({
+      currentAudioTime: changedTime
+    });
   }
 
   // display track info or not depending on if an active track is loaded
@@ -103,13 +131,36 @@ class Player extends React.Component {
 
   // convert soundcloud milliseconds to seconds
   convertToSeconds(millis) {
-    const seconds = (millis / 1000).toFixed(0);
+    const seconds = Math.floor((millis / 1000));
     return seconds;
   }
+
+  // conver to mm:ss display time
+  convertToDisplayTime(seconds) {
+    const dMinutes = Math.floor(seconds / 60);
+    const dSeconds = (Math.floor(seconds % 60));
+    return dMinutes + ":" + (dSeconds < 10 ? '0' : '') + dSeconds;
+  }
+
+
+
+  // handle changes to seek bar range input and 
+  // update audio player's current time to set seek time
+  onSeekbarChange(e) {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+    let newValue = e.target.value;
+
+    audioElement.currentTime = newValue;
+  }
+
 
   render() {
     const {activeTrack, playing} = this.props;
 
+    // XXX: <audio ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio>
+    // this is the original audio element.
+    // i'm currently replacing this with a version that directly references an mp3 track on the local
+    // dev environment so put this back inside the return function once internet is back
     return (
       <div className="player">
         <div className="player-controls">
@@ -122,9 +173,21 @@ class Player extends React.Component {
           <svg className="icon icon-forward3"><use onClick={this.handleSkip} xlinkHref="#icon-forward3"></use></svg>
         </div>
         <div className="active-track-container">
-          <audio ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio>
+          <audio ref="audio" src={`${activeTrack.stream_url}`}></audio>
           {this.displayTrackInfo(activeTrack)}
-          <input className="seek-slider" type="range" value="0" min="0" max={this.convertToSeconds(activeTrack.duration)} />
+          <span className="seek-bar-current-time">
+            {this.convertToDisplayTime(this.state.currentAudioTime)}
+          </span>
+          <input
+            className="seek-bar"
+            type="range"
+            value={this.state.currentAudioTime}
+            min="0" max={this.convertToSeconds(activeTrack.duration)}
+            onChange={this.onSeekbarChange}
+          />
+          <span className ="seek-bar-end-time">
+            {this.convertToDisplayTime(this.convertToSeconds(activeTrack.duration))}
+          </span>
         </div>
       </div>
     );

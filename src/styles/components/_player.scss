@@ -64,7 +64,12 @@
 
 
 // seek bar
-.seek-slider {
+.seek-bar {
   width: 50%;
   background-color: main-color('foreground-light');
+}
+
+.seek-bar-current-time,
+.seek-bar-end-time {
+  color: main-color('secondary');
 }
