@@ -17,7 +17,7 @@ const mockSongObj = {
 
 const initialState = {
   tracks: [],
-  activeTrack: mockSongObj
+  activeTrack: {}
 };
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.

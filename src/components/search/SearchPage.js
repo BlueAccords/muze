@@ -48,6 +48,7 @@ class SearchPage extends Component {
   // sets the active track to the passed in track
   // then plays the track in the player
   setActiveTrack(track) {
+    track.stream_url = `http://localhost:3030/stream?url=${track.stream_url}`;
     if(this.props.activeTrack !== track) this.props.actions.setActiveTrack(track);
   }
 

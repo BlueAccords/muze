@@ -27,6 +27,15 @@ export function setActiveTrack(track) {
  return {type: ActionTypes.SET_ACTIVE_TRACK, track: track};
 }
 
+// api call on proxy api to get direct link to track stream url
+// export function getDirectTrackUrl(track) {
+//   // if no activeTrack is available then do nothing
+//   if(track.setActiveTrack === undefined) setActiveTrack(track);
+
+//   // TODO: set up ajax status handlers
+
+// }
+
 // api call to get tracks from soundcloud
 export function getTracks(searchParams) {
   return function(dispatch) {
@@ -38,6 +47,7 @@ export function getTracks(searchParams) {
     // returns a promise then handles it
     // catches error if an error occurs
     return fetch(`https://api.soundcloud.com/tracks.json?client_id=${CLIENT_ID}&q=${searchParams}&limit=50&offset=0`)
+    // return fetch(`http://localhost:3030/space/${searchParams}`)
       .then(response => response.json())
       .then(json => dispatch(getTracksSuccess(json)))
       .catch(error => {

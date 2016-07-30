@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import {bindActionCreators} from 'redux';
+import _ from 'lodash';
 
 // try to get local api key or from env
 // if(process.env.NODE_ENV === 'production') {
@@ -153,6 +154,13 @@ class Player extends React.Component {
     audioElement.currentTime = newValue;
   }
 
+  // format stream url to make it through the reverse proxy to hide client id
+  // formatStreamUrl(url) {
+  //   if(url === 'undefined') return "";
+
+  //   const proxyUrl = `http://localhost:3030/stream?url=${url}`;
+  //   return proxyUrl;
+  // }
 
   render() {
     const {activeTrack, playing} = this.props;
@@ -173,7 +181,7 @@ class Player extends React.Component {
           <svg className="icon icon-forward3"><use onClick={this.handleSkip} xlinkHref="#icon-forward3"></use></svg>
         </div>
         <div className="active-track-container">
-          <audio ref="audio" src={`${activeTrack.stream_url}`}></audio>
+          <audio ref="audio" src={activeTrack.stream_url}></audio>
           {this.displayTrackInfo(activeTrack)}
           <span className="seek-bar-current-time">
             {this.convertToDisplayTime(this.state.currentAudioTime)}
