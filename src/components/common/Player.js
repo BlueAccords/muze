@@ -19,18 +19,28 @@ class Player extends React.Component {
 
     // local player state
     this.state = {
-      currentAudioTime: 0
+      currentAudioTime: 0,
+      currentVolumeLevel: 100
     };
 
-    this.handleTogglePlay = this.handleTogglePlay.bind(this);
-    this.handleSkip = this.handleSkip.bind(this);
+    this.onTogglePlay = this.onTogglePlay.bind(this);
+    this.onSkip = this.onSkip.bind(this);
     this.displayTrackInfo = this.displayTrackInfo.bind(this);
+
+    // audio controls
     this.handleAudioPlayed = this.handleAudioPlayed.bind(this);
     this.handleAudioPaused = this.handleAudioPaused.bind(this);
+
+    // seekbar
     this.handleAudioTimeUpdate = this.handleAudioTimeUpdate.bind(this);
     this.handleSeeked = this.handleSeeked.bind(this);
     this.handleAudioTimeUpdate = this.handleAudioTimeUpdate.bind(this);
     this.onSeekbarChange = this.onSeekbarChange.bind(this);
+
+    // volume controls
+    this.onVolumeLevelChange = this.onVolumeLevelChange.bind(this);
+    this.handleVolumeUpdated = this.handleVolumeUpdated.bind(this);
+    
   }
 
   // Lifecycle components
@@ -42,6 +52,7 @@ class Player extends React.Component {
     audioElement.addEventListener('pause', this.handleAudioPaused, false);
     audioElement.addEventListener('timeupdate', this.handleAudioTimeUpdate, false);
     audioElement.addEventListener('seeked', this.handleSeeked, false);
+    audioElement.addEventListener('volumechange', this.handleVolumeUpdated, false);
   }
 
   // compare changed activeTrack and automaticaly play song if activeTrack is different
@@ -60,7 +71,9 @@ class Player extends React.Component {
 
     audioElement.removeEventListener('play', this.handleAudioPlayed, false);
     audioElement.removeEventListener('pause', this.handleAudioPaused, false);
-    // TODO: remove event listeners
+    audioElement.removeEventListener('timeupdate', this.handleAudioTimeUpdate, false);
+    audioElement.removeEventListener('seeked', this.handleSeeked, false);
+    audioElement.removeEventListener('volumechange', this.handleVolumeUpdated, false);
   }
 
   // toggle redux store to show audio is playing
@@ -77,37 +90,25 @@ class Player extends React.Component {
   }
 
   handleAudioTimeUpdate(e) {
-    let time = Math.floor(e.target.currentTime);
+    const time = Math.floor(e.target.currentTime);
     this.setState({
       currentAudioTime: time
     });
   }
 
-  // toggle audio element playing/pause if possible
-  handleTogglePlay() {
-    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-
-    // if not found return nothing
-    if (!audioElement) { return; }
-    const { playing, activeTrack } = this.props;
-
-    if (playing && activeTrack) {
-      audioElement.pause();
-    } else if(!playing && activeTrack){
-      audioElement.play();
-    }
-  }
-
-  handleSkip() {
-    console.log('skip was clicked');
-  }
-
   // handles event for when audio element's time is changed via a seek event.
   // should update component state to reflect change
   handleSeeked(e) {
-    let changedTime = e.target.currentTime;
+    const changedTime = e.target.currentTime;
     this.setState({
       currentAudioTime: changedTime
+    });
+  }
+
+  handleVolumeUpdated(e) {
+    const changedVolume = Math.floor(e.target.volume * 100);
+    this.setState({
+      currentVolumeLevel: changedVolume
     });
   }
 
@@ -154,7 +155,34 @@ class Player extends React.Component {
     audioElement.currentTime = newValue;
   }
 
-  // format stream url to make it through the reverse proxy to hide client id
+  // update volume of audio element on audio range slider change event
+  onVolumeLevelChange(e) {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+    // volume value for audio element is 0 to 100, slider is 0-100 converted to 0..1
+    const newValue = e.target.value/100;
+
+    audioElement.volume = newValue;
+  }
+
+  // toggle audio element playing/pause if possible
+  onTogglePlay() {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+    // if not found return nothing
+    if (!audioElement) { return; }
+    const { playing, activeTrack } = this.props;
+
+    if (playing && activeTrack) {
+      audioElement.pause();
+    } else if(!playing && activeTrack){
+      audioElement.play();
+    }
+  }
+
+  onSkip() {
+    console.log('skip was clicked');
+  }
+
   // formatStreamUrl(url) {
   //   if(url === 'undefined') return "";
 
@@ -172,30 +200,42 @@ class Player extends React.Component {
     return (
       <div className="player">
         <div className="player-controls">
-          <svg className="icon icon-backward2"><use onClick={this.handleSkip} xlinkHref="#icon-backward2"></use></svg>
+          <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
           {playing
-          ? <svg onClick={this.handleTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
-          : <svg onClick={this.handleTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
+          ? <svg onClick={this.onTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
+          : <svg onClick={this.onTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
           }
 
-          <svg className="icon icon-forward3"><use onClick={this.handleSkip} xlinkHref="#icon-forward3"></use></svg>
+          <svg className="icon icon-forward3"><use onClick={this.onSkip} xlinkHref="#icon-forward3"></use></svg>
         </div>
         <div className="active-track-container">
           <audio ref="audio" src={activeTrack.stream_url}></audio>
           {this.displayTrackInfo(activeTrack)}
-          <span className="seek-bar-current-time">
-            {this.convertToDisplayTime(this.state.currentAudioTime)}
-          </span>
-          <input
-            className="seek-bar"
-            type="range"
-            value={this.state.currentAudioTime}
-            min="0" max={this.convertToSeconds(activeTrack.duration)}
-            onChange={this.onSeekbarChange}
-          />
-          <span className ="seek-bar-end-time">
-            {this.convertToDisplayTime(this.convertToSeconds(activeTrack.duration))}
-          </span>
+          <div className="seek-bar-container">
+            <span className="seek-bar-current-time">
+              {this.convertToDisplayTime(this.state.currentAudioTime)}
+            </span>
+            <input
+              className="seek-bar"
+              type="range"
+              value={this.state.currentAudioTime}
+              min="0" max={this.convertToSeconds(activeTrack.duration)}
+              onChange={this.onSeekbarChange}
+            />
+            <span className ="seek-bar-end-time">
+              {this.convertToDisplayTime(this.convertToSeconds(activeTrack.duration))}
+            </span>
+          </div>
+          <div className="volume-container">
+            <input
+              className="volume-bar"
+              type="range"
+              value={this.state.currentVolumeLevel}
+              min="0" max="100"
+              onChange={this.onVolumeLevelChange}
+            />
+            <span>{this.state.currentVolumeLevel}</span>
+          </div>
         </div>
       </div>
     );
