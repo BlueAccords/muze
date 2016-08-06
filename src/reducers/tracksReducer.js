@@ -17,7 +17,8 @@ const mockSongObj = {
 
 const initialState = {
   tracks: [],
-  activeTrack: {}
+  activeTrackIndex: null,
+  playlist: []
 };
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -42,28 +43,29 @@ export default function tracksReducer(state = initialState, action) {
 
     case ActionTypes.SET_ACTIVE_TRACK:
       return setActiveTrack(state, action);
-      
+
     default:
       return state;
   }
 }
 
-// Replace tracks in state with new tracks
+// Replace tracks in state with new tracks and set playlist to tracks as well.
 function setTracks(state, action) {
   const {
     tracks
   } = action;
 
   return {...state,
-    tracks: tracks
+    tracks: tracks,
+    playlist: tracks
   };
 }
 
 function setActiveTrack(state, action) {
   const {
-    track
+    trackIndex
   } = action;
   return objectAssign({}, state, {
-    activeTrack: track
+    activeTrackIndex: trackIndex
   });
 }

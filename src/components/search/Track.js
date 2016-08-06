@@ -1,12 +1,12 @@
 import React, {PropTypes}from 'react';
 // import {Link} from 'react-router';
 
-const Track = ({track, playTrack}) => {
+const Track = ({track, playTrack, index}) => {
   return (
     <tr>
       <td>
         <img className="track-art" src={replaceArtwork(track.artwork_url)} title={track.title}/>
-        <svg className="icon icon-play3"><use onClick={() => {playTrack(track);}} xlinkHref="#icon-play3"></use></svg>
+        <svg className="icon icon-play3"><use onClick={() => {playTrack(index);}} xlinkHref="#icon-play3"></use></svg>
       </td>
       <td>
         <a href={track.permalink_url} target="_blank">{track.title}</a>

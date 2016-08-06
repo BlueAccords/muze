@@ -17,8 +17,8 @@ const TrackList = ({tracks, onSetTrack}) => {
         </tr>
       </thead>
       <tbody>
-        {tracks.map((track, key) =>
-          <Track key={key} track={track} playTrack={onSetTrack}/>
+        {tracks.map((track, index) =>
+          <Track key={track.id} track={track} index={index} playTrack={onSetTrack}/>
         )}
       </tbody>
     </table>

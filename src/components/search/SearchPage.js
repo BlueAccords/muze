@@ -32,9 +32,7 @@ class SearchPage extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-
     this.props.actions.getTracks(this.state.search);
-
   }
 
   // Updates search state every keystroke(yes its pretty often)
@@ -47,8 +45,10 @@ class SearchPage extends Component {
 
   // sets the active track to the passed in track
   // then plays the track in the player
-  setActiveTrack(track) {
-    if(this.props.activeTrack !== track) this.props.actions.setActiveTrack(track);
+  setActiveTrack(trackIndex) {
+    // if(this.props.activeTrack !== track.id) 
+    console.log('trakc index here', trackIndex)
+    this.props.actions.setActiveTrack(trackIndex);
   }
 
   // display results
@@ -108,12 +108,12 @@ SearchPage.propTypes = {
 // Get tracks from src/index.js dispatching an action to load tracks into store's state or
 // directly from redux store
 function mapStateToProps(state) {
-  const {tracks, activeTrack} = state.tracks;
+  const {tracks, activeTrackIndex} = state.tracks;
   const isPlaying = state.player.playing;
   return {
     tracks,
     isPlaying,
-    activeTrack,
+    activeTrackIndex,
     search: {},
     loading: state.ajaxStatus.tracks > 0
   };

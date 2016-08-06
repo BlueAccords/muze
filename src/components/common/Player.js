@@ -19,8 +19,8 @@ class Player extends React.Component {
 
     // local player state
     this.state = {
-      currentTrackIndex: 0,
       currentAudioTime: 0,
+      currentAudioDuration: 0,
       currentVolumeLevel: 100
     };
 
@@ -61,10 +61,19 @@ class Player extends React.Component {
 
   // compare changed activeTrack and automaticaly play song if activeTrack is different
   // from the previous;
+  // additionally, set local state's duration
   componentDidUpdate(prevProps) {
     const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+    const { activeTrackIndex, playlist } = this.props;
 
-    if(this.props.activeTrack && this.props.activeTrack !== prevProps.activeTrack) {
+    if(activeTrackIndex !== undefined && activeTrackIndex !== prevProps.activeTrackIndex) {
+      const activeTrack = playlist[activeTrackIndex];
+      const duration = Math.floor(activeTrack.duration);
+
+      this.setState({
+        currentAudioDuration: duration
+      });
+
       audioElement.play();
     }
   }
@@ -83,14 +92,14 @@ class Player extends React.Component {
   // toggle redux store to show audio is playing
   // should only change if an active track is available
   handleAudioPlayed() {
-    const { activeTrack } = this.props;
-    if(activeTrack) this.props.actions.togglePlaying(true);
+    const { activeTrackIndex } = this.props;
+    if(activeTrackIndex !== undefined) this.props.actions.togglePlaying(true);
   }
   
   // toggle redux store playing state to pause
   handleAudioPaused() {
-    const { activeTrack } = this.props;
-    if(activeTrack) this.props.actions.togglePlaying(false);
+    const { activeTrackIndex } = this.props;
+    if(activeTrackIndex !== undefined) this.props.actions.togglePlaying(false);
   }
 
   handleAudioTimeUpdate(e) {
@@ -178,11 +187,11 @@ class Player extends React.Component {
 
     // if not found return nothing
     if (!audioElement) { return; }
-    const { playing, activeTrack } = this.props;
+    const { playing, activeTrackIndex } = this.props;
 
-    if (playing && activeTrack) {
+    if (playing && activeTrackIndex !== undefined) {
       audioElement.pause();
-    } else if(!playing && activeTrack){
+    } else if(!playing && activeTrackIndex !== undefined){
       audioElement.play();
     }
   }
@@ -192,8 +201,12 @@ class Player extends React.Component {
   }
 
   // format stream url
-  formatStreamURL(id) {
-    return `http://localhost:3030/stream?id=${id}`
+  formatStreamURL(track) {
+    if(track !== undefined) {
+      return `http://localhost:3030/stream?id=${track.id}`
+    } else {
+      return "";
+    }
   }
 
   // display svg volume icon depending on volume level
@@ -214,8 +227,8 @@ class Player extends React.Component {
   }
 
   render() {
-    const {activeTrack, playing} = this.props;
-
+    const {playlist, activeTrackIndex, playing} = this.props;
+    const activeTrack = playlist[activeTrackIndex]; 
     // XXX: <audio ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio>
     // this is the original audio element.
     // i'm currently replacing this with a version that directly references an mp3 track on the local
@@ -227,7 +240,7 @@ class Player extends React.Component {
             className="seek-bar"
             type="range"
             value={this.state.currentAudioTime}
-            min="0" max={this.convertToSeconds(activeTrack.duration)}
+            min="0" max={this.convertToSeconds(this.state.currentAudioDuration)}
             onChange={this.onSeekbarChange}
           />
 
@@ -237,13 +250,13 @@ class Player extends React.Component {
               {this.convertToDisplayTime(this.state.currentAudioTime)}
             </span>
             <span className ="seek-bar-end-time">
-              {this.convertToDisplayTime(this.convertToSeconds(activeTrack.duration))}
+              {this.convertToDisplayTime(this.convertToSeconds(this.state.currentAudioDuration))}
             </span>
           </div>
         </div>
 
         <div className="active-track-container">
-          <audio ref="audio" src={this.formatStreamURL(activeTrack.id)}></audio>
+          <audio ref="audio" src={this.formatStreamURL(activeTrack)}></audio>
           <div className="player-controls">
             <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
             {playing
@@ -273,7 +286,7 @@ class Player extends React.Component {
 }
 
 Player.propTypes = {
-  activeTrack: PropTypes.object,
+  activeTrackIndex: React.PropTypes.number,
   playing: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 };
@@ -286,8 +299,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    activeTrack: state.tracks.activeTrack,
-    playing: state.player.playing
+    activeTrackIndex: state.tracks.activeTrackIndex,
+    playing: state.player.playing,
+    playlist: state.tracks.playlist
   };
 }
 
