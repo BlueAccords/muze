@@ -41,6 +41,8 @@ class Player extends React.Component {
     this.onVolumeLevelChange = this.onVolumeLevelChange.bind(this);
     this.handleVolumeUpdated = this.handleVolumeUpdated.bind(this);
     
+    // format util function
+    this.formatStreamURL = this.formatStreamURL.bind(this);
   }
 
   // Lifecycle components
@@ -183,6 +185,11 @@ class Player extends React.Component {
     console.log('skip was clicked');
   }
 
+  // format stream url
+  formatStreamURL(id) {
+    return `http://localhost:3030/stream?id=${id}`
+  }
+
   // display svg volume icon depending on volume level
   displayVolumeIcon() {
     const volume = this.state.currentVolumeLevel;
@@ -230,7 +237,7 @@ class Player extends React.Component {
         </div>
 
         <div className="active-track-container">
-          <audio ref="audio" src={activeTrack.stream_url}></audio>
+          <audio ref="audio" src={this.formatStreamURL(activeTrack.id)}></audio>
           <div className="player-controls">
             <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
             {playing
