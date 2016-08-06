@@ -39,8 +39,10 @@ export default function tracksReducer(state = initialState, action) {
     case ActionTypes.GET_TRACKS_SUCCESS:
       if (action.tracks === undefined) return state;
       return setTracks(state, action);
+
     case ActionTypes.SET_ACTIVE_TRACK:
       return setActiveTrack(state, action);
+      
     default:
       return state;
   }

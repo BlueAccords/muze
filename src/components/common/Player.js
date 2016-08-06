@@ -19,6 +19,7 @@ class Player extends React.Component {
 
     // local player state
     this.state = {
+      currentTrackIndex: 0,
       currentAudioTime: 0,
       currentVolumeLevel: 100
     };
@@ -55,6 +56,7 @@ class Player extends React.Component {
     audioElement.addEventListener('timeupdate', this.handleAudioTimeUpdate, false);
     audioElement.addEventListener('seeked', this.handleSeeked, false);
     audioElement.addEventListener('volumechange', this.handleVolumeUpdated, false);
+    audioElement.addEventListener('ended', this.handleAudioEnded, false);
   }
 
   // compare changed activeTrack and automaticaly play song if activeTrack is different
@@ -112,6 +114,10 @@ class Player extends React.Component {
     this.setState({
       currentVolumeLevel: changedVolume
     });
+  }
+
+  handleAudioEnded(e) {
+    // const 
   }
 
   // display track info or not depending on if an active track is loaded

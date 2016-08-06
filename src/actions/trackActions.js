@@ -22,7 +22,7 @@ export function getTracksSuccess(tracks) {
   return {type: ActionTypes.GET_TRACKS_SUCCESS, tracks: tracks};
 }
 
-// sets the active track
+// sets the active track by playlist index
 export function setActiveTrack(track) {
  return {type: ActionTypes.SET_ACTIVE_TRACK, track: track};
 }
@@ -47,7 +47,7 @@ export function getTracks(searchParams) {
     // returns a promise then handles it
     // catches error if an error occurs
     // return fetch(`https://api.soundcloud.com/tracks.json?client_id=${CLIENT_ID}&q=${searchParams}&limit=50&offset=0`)
-    return fetch(`http://localhost:3030/space/${searchParams}`)
+    return fetch(`http://localhost:3030/space/q=${searchParams}`)
       .then(response => response.json())
       .then(json => dispatch(getTracksSuccess(json)))
       .catch(error => {
