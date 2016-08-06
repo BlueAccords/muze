@@ -11,7 +11,7 @@ import _ from 'lodash';
 // } else {
 //   var CLIENT_ID = require('../../constants/auth').CLIENT_ID;
 // }
-import { CLIENT_ID } from '../../constants/auth';
+// import { CLIENT_ID } from '../../constants/auth';
 
 class Player extends React.Component {
   constructor(props, context) {
@@ -183,12 +183,22 @@ class Player extends React.Component {
     console.log('skip was clicked');
   }
 
-  // formatStreamUrl(url) {
-  //   if(url === 'undefined') return "";
+  // display svg volume icon depending on volume level
+  displayVolumeIcon() {
+    const volume = this.state.currentVolumeLevel;
 
-  //   const proxyUrl = `http://localhost:3030/stream?url=${url}`;
-  //   return proxyUrl;
-  // }
+    if(volume >= 70) {
+      return <svg className="icon icon-volume-high"><use onClick={this.onSkip} xlinkHref="#icon-volume-high"></use></svg>;
+    } else if(volume >= 40 && volume < 70) {
+      return <svg className="icon icon-volume-medium"><use onClick={this.onSkip} xlinkHref="#icon-volume-medium"></use></svg>;
+    } else if(volume > 0 && volume < 40) {
+      return <svg className="icon icon-volume-low"><use onClick={this.onSkip} xlinkHref="#icon-volume-low"></use></svg>;
+    } else if(volume === 0) {
+      return <svg className="icon icon-volume-mute"><use onClick={this.onSkip} xlinkHref="#icon-volume-mute"></use></svg>;
+    } else {
+      return;
+    }
+  }
 
   render() {
     const {activeTrack, playing} = this.props;
@@ -199,34 +209,42 @@ class Player extends React.Component {
     // dev environment so put this back inside the return function once internet is back
     return (
       <div className="player">
-        <div className="player-controls">
-          <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
-          {playing
-          ? <svg onClick={this.onTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
-          : <svg onClick={this.onTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
-          }
+        <div className="seek-bar-container">
+          <input
+            className="seek-bar"
+            type="range"
+            value={this.state.currentAudioTime}
+            min="0" max={this.convertToSeconds(activeTrack.duration)}
+            onChange={this.onSeekbarChange}
+          />
 
-          <svg className="icon icon-forward3"><use onClick={this.onSkip} xlinkHref="#icon-forward3"></use></svg>
-        </div>
-        <div className="active-track-container">
-          <audio ref="audio" src={activeTrack.stream_url}></audio>
-          {this.displayTrackInfo(activeTrack)}
-          <div className="seek-bar-container">
+         {/* seek bar times */} 
+          <div className="seek-time-container">
             <span className="seek-bar-current-time">
               {this.convertToDisplayTime(this.state.currentAudioTime)}
             </span>
-            <input
-              className="seek-bar"
-              type="range"
-              value={this.state.currentAudioTime}
-              min="0" max={this.convertToSeconds(activeTrack.duration)}
-              onChange={this.onSeekbarChange}
-            />
             <span className ="seek-bar-end-time">
               {this.convertToDisplayTime(this.convertToSeconds(activeTrack.duration))}
             </span>
           </div>
+        </div>
+
+        <div className="active-track-container">
+          <audio ref="audio" src={activeTrack.stream_url}></audio>
+          <div className="player-controls">
+            <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
+            {playing
+            ? <svg onClick={this.onTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
+            : <svg onClick={this.onTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
+            }
+
+            <svg className="icon icon-forward3"><use onClick={this.onSkip} xlinkHref="#icon-forward3"></use></svg>
+          </div>
+
+          {this.displayTrackInfo(activeTrack)}
+
           <div className="volume-container">
+            {this.displayVolumeIcon()}
             <input
               className="volume-bar"
               type="range"
@@ -234,7 +252,6 @@ class Player extends React.Component {
               min="0" max="100"
               onChange={this.onVolumeLevelChange}
             />
-            <span>{this.state.currentVolumeLevel}</span>
           </div>
         </div>
       </div>

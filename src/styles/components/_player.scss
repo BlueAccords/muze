@@ -5,12 +5,6 @@
   background-color: main-color('primary');
 }
 
-.player-controls {
-  float: left;
-  margin: 0 auto;
-  max-width: $max-width;
-}
-
 // svg icon styles
 .icon {
   cursor: pointer;
@@ -45,7 +39,10 @@
   }
 }
 
-.icon-volume-high {
+svg[class^="icon-volume"],
+svg[class*=" icon-volume"] {
+  display: inline-block;
+  height: 1em;
   width: 1.0625em;
 }
 
@@ -57,19 +54,45 @@
 .previous-btn {
 }
 
-.track-info {
-  margin-top: .75rem;
-  color: main-color('foreground-light');
+// seek bar
+.seek-bar-container {
+  padding: 0 1rem;
 }
 
-
-// seek bar
 .seek-bar {
-  width: 50%;
+  width: 100%;
   background-color: main-color('foreground-light');
+}
+
+// seek bar times
+
+.seek-time-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .seek-bar-current-time,
 .seek-bar-end-time {
   color: main-color('secondary');
+}
+
+// seek bar controls + track info
+.active-track-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-controls {
+}
+
+// volume
+.volume-container {
+  .icon {
+    margin: 0 0.5rem;
+  }
+}
+
+.track-info {
+  color: main-color('foreground-light');
 }
