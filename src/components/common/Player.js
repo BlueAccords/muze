@@ -25,7 +25,6 @@ class Player extends React.Component {
     };
 
     this.onTogglePlay = this.onTogglePlay.bind(this);
-    this.onSkip = this.onSkip.bind(this);
     this.displayTrackInfo = this.displayTrackInfo.bind(this);
 
     // audio controls
@@ -42,6 +41,11 @@ class Player extends React.Component {
     this.onVolumeLevelChange = this.onVolumeLevelChange.bind(this);
     this.handleVolumeUpdated = this.handleVolumeUpdated.bind(this);
     
+    // track change events
+    this.onNextTrack = this.onNextTrack.bind(this);
+    this.onPrevTrack = this.onPrevTrack.bind(this);
+    this.handleAudioEnded = this.handleAudioEnded.bind(this);
+
     // format util function
     this.formatStreamURL = this.formatStreamURL.bind(this);
   }
@@ -125,8 +129,11 @@ class Player extends React.Component {
     });
   }
 
-  handleAudioEnded(e) {
-    // const 
+  // play next song in playlist on audio end depending on state options
+  handleAudioEnded() {
+    const { activeTrackIndex } = this.props;
+    
+    if(activeTrackIndex !== undefined) this.props.actions.setTrackChangeIndex(activeTrackIndex, 'next');
   }
 
   // display track info or not depending on if an active track is loaded
@@ -196,14 +203,22 @@ class Player extends React.Component {
     }
   }
 
-  onSkip() {
-    console.log('skip was clicked');
+  onNextTrack() {
+    const { activeTrackIndex } = this.props;
+    
+    if(activeTrackIndex !== undefined) this.props.actions.setTrackChangeIndex(activeTrackIndex, 'next');
+  }
+
+  onPrevTrack() {
+    const { activeTrackIndex } = this.props;
+    
+    if(activeTrackIndex !== undefined) this.props.actions.setTrackChangeIndex(activeTrackIndex, 'prev');
   }
 
   // format stream url
   formatStreamURL(track) {
     if(track !== undefined) {
-      return `http://localhost:3030/stream?id=${track.id}`
+      return `http://localhost:3030/stream?id=${track.id}`;
     } else {
       return "";
     }
@@ -258,13 +273,13 @@ class Player extends React.Component {
         <div className="active-track-container">
           <audio ref="audio" src={this.formatStreamURL(activeTrack)}></audio>
           <div className="player-controls">
-            <svg className="icon icon-backward2"><use onClick={this.onSkip} xlinkHref="#icon-backward2"></use></svg>
+            <svg className="icon icon-backward2"><use onClick={this.onPrevTrack} xlinkHref="#icon-backward2"></use></svg>
             {playing
             ? <svg onClick={this.onTogglePlay} className="icon icon-pause2"><use xlinkHref="#icon-pause2"></use></svg>
             : <svg onClick={this.onTogglePlay} className="icon icon-play3"><use  xlinkHref="#icon-play3"></use></svg>
             }
 
-            <svg className="icon icon-forward3"><use onClick={this.onSkip} xlinkHref="#icon-forward3"></use></svg>
+            <svg className="icon icon-forward3"><use onClick={this.onNextTrack} xlinkHref="#icon-forward3"></use></svg>
           </div>
 
           {this.displayTrackInfo(activeTrack)}
@@ -288,7 +303,8 @@ class Player extends React.Component {
 Player.propTypes = {
   activeTrackIndex: React.PropTypes.number,
   playing: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  playlist: React.PropTypes.arrayOf(PropTypes.object)
 };
 
 function mapDispatchToProps(dispatch) {

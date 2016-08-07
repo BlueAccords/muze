@@ -1,7 +1,7 @@
 // Root file containing all actions so they can be exported all at once
 
 // import {auth} from './auth';
-import { setTracks, getTracks, setActiveTrack } from './trackActions';
+import { setTracks, getTracks, setActiveTrack, setTrackChangeIndex } from './trackActions';
 
 // player actions
 import { togglePlaying } from './playerActions';
@@ -10,7 +10,7 @@ import { togglePlaying } from './playerActions';
 import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
 
 export {
-  setTracks, getTracks, setActiveTrack,
+  setTracks, getTracks, setActiveTrack, setTrackChangeIndex,
   togglePlaying,
   beginAjaxCall, catchAjaxCall
 };

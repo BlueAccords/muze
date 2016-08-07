@@ -10,7 +10,7 @@ import {beginAjaxCall, catchAjaxCall} from './ajaxStatusActions';
 // } else {
 //   var CLIENT_ID = require('../constants/auth').CLIENT_ID;
 // }
-import { CLIENT_ID } from '../constants/auth';
+// import { CLIENT_ID } from '../constants/auth';
 
 // return action payload
 export function setTracks(tracks) {
@@ -27,18 +27,8 @@ export function setActiveTrack(trackIndex) {
  return {type: ActionTypes.SET_ACTIVE_TRACK, trackIndex: trackIndex};
 }
 
-export function changeTrack() {
-  
-}
-
-// api call on proxy api to get direct link to track stream url
-// export function getDirectTrackUrl(track) {
-//   // if no activeTrack is available then do nothing
-//   if(track.setActiveTrack === undefined) setActiveTrack(track);
-
 //   // TODO: set up ajax status handlers
 
-// }
 
 // api call to get tracks from soundcloud
 export function getTracks(searchParams) {
@@ -58,5 +48,36 @@ export function getTracks(searchParams) {
         dispatch(catchAjaxCall(error));
       throw(error);
     });
+  };
+}
+
+// returns new track index depending on change type and only if its a valid change
+// should only be called within actions
+export function setTrackChangeIndex(trackIndex, changeType) {
+  return function(dispatch, getState) {
+    const { tracks } = getState();
+    const { playlist, activeTrackIndex } = tracks;
+    let newTrackIndex = null;
+
+    // TODO: set constants for song change types
+    switch(changeType) {
+      case 'next':
+        newTrackIndex =  activeTrackIndex + 1;
+        break;
+      case 'prev':
+        newTrackIndex = activeTrackIndex - 1;       
+        break;
+      case 'shuffle':
+        newTrackIndex = Math.floor(Math.random() * playlist.length - 1);
+        break;
+    }
+
+    // check if new index is valid within context of playlist length
+    if(newTrackIndex >= playlist.length || newTrackIndex < 0) {
+      return;
+    } else {
+
+      dispatch(setActiveTrack(newTrackIndex));
+    }
   };
 }

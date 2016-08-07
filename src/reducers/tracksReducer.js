@@ -51,9 +51,7 @@ export default function tracksReducer(state = initialState, action) {
 
 // Replace tracks in state with new tracks and set playlist to tracks as well.
 function setTracks(state, action) {
-  const {
-    tracks
-  } = action;
+  const { tracks } = action;
 
   return {...state,
     tracks: tracks,
@@ -62,9 +60,8 @@ function setTracks(state, action) {
 }
 
 function setActiveTrack(state, action) {
-  const {
-    trackIndex
-  } = action;
+  const { trackIndex } = action;
+  
   return objectAssign({}, state, {
     activeTrackIndex: trackIndex
   });
