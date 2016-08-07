@@ -91,6 +91,7 @@ class Player extends React.Component {
     audioElement.removeEventListener('timeupdate', this.handleAudioTimeUpdate, false);
     audioElement.removeEventListener('seeked', this.handleSeeked, false);
     audioElement.removeEventListener('volumechange', this.handleVolumeUpdated, false);
+    audioElement.removeEventListener('ended', this.handleAudioEnded, false);
   }
 
   // toggle redux store to show audio is playing
