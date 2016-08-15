@@ -64,7 +64,7 @@ class SearchPage extends Component {
       );
     } else if(!loading && tracks.length > 0 ) {
       return (
-        <TrackList tracks={tracks} onSetTrack={this.setActiveTrack}/>
+        <TrackList tracks={tracks} activeIndex={this.props.activeTrackIndex} onSetTrack={this.setActiveTrack}/>
       );
     } else {
       return (

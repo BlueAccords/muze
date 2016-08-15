@@ -1,9 +1,9 @@
 import React, {PropTypes}from 'react';
 // import {Link} from 'react-router';
 
-const Track = ({track, playTrack, index}) => {
+const Track = ({track, playTrack, index, active}) => {
   return (
-    <tr className="track-row" onClick={() => {playTrack(index);}}>
+    <tr className={isTrackActive(active)} onClick={() => {playTrack(index);}}>
       <td>
         <a href={track.permalink_url} target="_blank">{track.title}</a>
       </td>
@@ -46,6 +46,13 @@ function replaceArtwork(url) {
 */
 }
 
+// check if active or not and return list of classNames relevant to state
+function isTrackActive(active) {
+  return active 
+    ? "track-row active-track"
+    : "track-row";
+}
+
 // convert soundcloud milliseconds to minutes:seconds
 function convertToTime(millis) {
   const minutes = Math.floor(millis / 60000);
@@ -55,7 +62,9 @@ function convertToTime(millis) {
 
 Track.propTypes = {
   track: PropTypes.object,
-  playTrack: PropTypes.func.isRequired
+  playTrack: PropTypes.func.isRequired,
+  active: React.PropTypes.bool.isRequired,
+  index: React.PropTypes.number.isRequired
 };
 
 

@@ -2,7 +2,8 @@
   // max width
   margin: 0 auto;
   display: block;
-
+  border-collapse: collapse;
+  
   // style table header rows
   thead tr {
     text-align: left;
@@ -13,7 +14,7 @@
     color: #D5DDE5;
     background: #1b1e24;
     border-bottom: 4px solid #9ea7af;
-    border-right: 1px solid #343a45;
+    // border-right: 1px solid #343a45;
     font-size: 1rem;
     font-weight: 100;
     padding: 24px;
@@ -32,6 +33,11 @@
     &:hover {
       background-color: darken(#BABABA, 15%);
     }
+
+    // active track styling
+    &.active-track {
+      background-color: main-color('secondary');
+    }
   }
   
 
@@ -43,12 +49,7 @@
     font-weight:300;
     font-size:18px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-    border-right: 1px solid #C1C3D1;
-  }
-
-
-  .track-row {
-    
+    // border-right: 1px solid #C1C3D1;
   }
 }
 

@@ -5,7 +5,7 @@ import Jumbotron from './home/Jumbotron';
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="container">
       <Jumbotron />
     </div>
   );

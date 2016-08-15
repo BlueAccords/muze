@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import Track from './Track';
 
-const TrackList = ({tracks, onSetTrack}) => {
+const TrackList = ({tracks, onSetTrack, activeIndex}) => {
   let wrapperClass = "table container";
 
   return (
@@ -17,7 +17,7 @@ const TrackList = ({tracks, onSetTrack}) => {
       </thead>
       <tbody>
         {tracks.map((track, index) =>
-          <Track key={track.id} track={track} index={index} playTrack={onSetTrack}/>
+          <Track key={track.id} track={track} active={index === activeIndex}index={index} playTrack={onSetTrack}/>
         )}
       </tbody>
     </table>
