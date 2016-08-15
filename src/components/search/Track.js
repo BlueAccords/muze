@@ -18,12 +18,6 @@ const Track = ({track, playTrack, index, active}) => {
           {convertToTime(track.duration)}
         </span>
       </td>
-      <td>
-        <span>{track.genre}</span>
-      </td>
-      <td>
-        <span>{track.likes_count}</span>
-      </td>
     </tr>
   );
 };

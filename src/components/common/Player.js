@@ -265,6 +265,9 @@ class Player extends React.Component {
     return (
       <div className="player">
         <div className="seek-bar-container">
+          <span className="seek-bar-current-time">
+            {this.convertToDisplayTime(this.state.currentAudioTime)}
+          </span>
           <input
             className="seek-bar"
             type="range"
@@ -272,16 +275,9 @@ class Player extends React.Component {
             min="0" max={this.convertToSeconds(this.state.currentAudioDuration)}
             onChange={this.onSeekbarChange}
           />
-
-         {/* seek bar times */} 
-          <div className="seek-time-container">
-            <span className="seek-bar-current-time">
-              {this.convertToDisplayTime(this.state.currentAudioTime)}
-            </span>
-            <span className ="seek-bar-end-time">
-              {this.convertToDisplayTime(this.convertToSeconds(this.state.currentAudioDuration))}
-            </span>
-          </div>
+          <span className ="seek-bar-end-time">
+            {this.convertToDisplayTime(this.convertToSeconds(this.state.currentAudioDuration))}
+          </span>
         </div>
         
         <div className="player-info">

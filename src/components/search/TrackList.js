@@ -11,8 +11,6 @@ const TrackList = ({tracks, onSetTrack, activeIndex}) => {
           <th>Title</th>
           <th>Uploader</th>
           <th>Length</th>
-          <th>Genre</th>
-          <th>Likes</th>
         </tr>
       </thead>
       <tbody>

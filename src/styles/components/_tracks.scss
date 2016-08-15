@@ -4,6 +4,9 @@
   display: block;
   border-collapse: collapse;
 
+  // done so a specific table cell can later take up remaining empty width space
+  width: auto;
+
   // style table header rows
   thead tr {
     text-align: left;
@@ -21,6 +24,10 @@
     text-align: left;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align: middle;
+  }
+
+  thead th:first-child {
+    width: 100%;
   }
 
   .track-row {

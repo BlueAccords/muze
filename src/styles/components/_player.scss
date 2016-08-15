@@ -35,11 +35,18 @@
 
 // seek bar
 .seek-bar-container {
+  margin: 0.5rem 0;
   padding: 0 1rem;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
 }
 
 .seek-bar {
-  width: 100%;
+  flex-grow: 80;
   background-color: main-color('foreground-light');
 }
 
@@ -51,13 +58,15 @@
 
 // seek bar times
 
-.seek-time-container {
-  display: flex;
-  justify-content: space-between;
-}
+// .seek-time-container {
+//   display: flex;
+//   justify-content: space-between;
+// }
 
 .seek-bar-current-time,
 .seek-bar-end-time {
+  flex-grow: 1;
+  text-align: center;
   color: main-color('secondary');
 }
 
