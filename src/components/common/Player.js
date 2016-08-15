@@ -279,11 +279,13 @@ class Player extends React.Component {
             {this.convertToDisplayTime(this.convertToSeconds(this.state.currentAudioDuration))}
           </span>
         </div>
-        
-        <div className="player-info">
-          {this.displayTrackInfo(activeTrack)}
-          
-          <audio ref="audio" src={this.formatStreamURL(activeTrack)}></audio>
+
+        <div className="player-info-container">
+          <div className="player-info">
+            {this.displayTrackInfo(activeTrack)}
+            
+            <audio ref="audio" src={this.formatStreamURL(activeTrack)}></audio>
+          </div>
           <div className="player-controls">
             <svg className="icon icon-backward2"><use onClick={this.onPrevTrack} xlinkHref="#icon-backward2"></use></svg>
             {playing

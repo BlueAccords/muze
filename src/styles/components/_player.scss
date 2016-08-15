@@ -36,7 +36,6 @@
 // seek bar
 .seek-bar-container {
   margin: 0.5rem 0;
-  padding: 0 1rem;
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -81,18 +80,38 @@
 // 
 
 .player-info {
-  padding: 0 1rem 1rem;
+  flex-basis: 100%;
+
+  // flex-basis done so player controls + track info take up static positions
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
 
+// child container for flex stying
+.player-info-container {
+  padding: 0 1rem 0.5rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  &> div {
+    flex-grow: 1;
+  }
+
+}
+
 .player-controls {
+  text-align: center;
 }
 
 // volume
 .volume-container {
+  text-align: right;
+
   .icon {
     margin: 0 0.5rem;
   }
@@ -110,5 +129,30 @@
   .track-text-info {
     margin-left: 1rem;
     display: inline;
+  }
+}
+
+
+// media queries
+@media only screen and (min-width: 200px) {
+  
+}
+
+@media only screen and (min-width: 560px) {
+
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (min-width: 900px) {
+  // layout of 33% split between player, info, and volume controls
+  .player-info {
+    flex-basis: 33%;
+  }
+
+  .volume-container {
+    flex-basis: 25%;
   }
 }
