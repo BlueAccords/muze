@@ -20,7 +20,8 @@ class Player extends React.Component {
     this.state = {
       currentAudioTime: 0,
       currentAudioDuration: 0,
-      currentVolumeLevel: 100
+      currentVolumeLevel: 100,
+      isShuffle: false
     };
 
     this.onTogglePlay = this.onTogglePlay.bind(this);
@@ -47,6 +48,9 @@ class Player extends React.Component {
 
     // format util function
     this.formatStreamURL = this.formatStreamURL.bind(this);
+
+    // checkbox event handler
+    this.onCheckboxChange = this.onCheckboxChange.bind(this);
   }
 
   // Lifecycle components
@@ -133,7 +137,11 @@ class Player extends React.Component {
   handleAudioEnded() {
     const { activeTrackIndex } = this.props;
     
-    if(activeTrackIndex !== undefined) this.props.actions.setTrackChangeIndex(activeTrackIndex, 'next');
+    if(activeTrackIndex !== undefined && !this.state.isShuffle){
+      this.props.actions.setTrackChangeIndex(activeTrackIndex, 'next');
+    } else if(this.state.isShuffle) {
+      this.props.actions.setTrackChangeIndex(activeTrackIndex, 'shuffle'); 
+    }
   }
 
   // display track info or not depending on if an active track is loaded
@@ -255,6 +263,12 @@ class Player extends React.Component {
     return url;
   }
 
+  onCheckboxChange(e) {
+    this.setState({
+      isShuffle: e.target.checked
+    });
+  }
+
   render() {
     const {playlist, activeTrackIndex, playing} = this.props;
     const activeTrack = playlist[activeTrackIndex]; 
@@ -294,6 +308,18 @@ class Player extends React.Component {
             }
 
             <svg className="icon icon-forward3"><use onClick={this.onNextTrack} xlinkHref="#icon-forward3"></use></svg>
+            
+            <input
+              id="shuffle-input"
+              type="checkbox"
+              defaultChecked={this.state.isShuffle}
+              checked={this.state.isShuffle}
+              onChange={this.onCheckboxChange}
+            />
+            <label htmlFor="shuffle-input" className="shuffle-label">
+              <svg className="icon icon-shuffle"><use xlinkHref="#icon-shuffle"></use></svg>
+            </label>
+            
           </div>
 
           <div className="volume-container">

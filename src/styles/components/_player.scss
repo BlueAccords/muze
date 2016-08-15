@@ -102,6 +102,15 @@
 
 .player-controls {
   text-align: center;
+
+  // shuffle btn
+  #shuffle-input {
+    display: none;
+  }
+
+  input[type="checkbox"]#shuffle-input:checked + label > .icon-shuffle {
+    fill: darken(main-color('foreground-light'), 20%);
+  }
 }
 
 // volume
