@@ -152,8 +152,8 @@ class Player extends React.Component {
         <div className="track-info">
           <img className="track-art" src={this.placeholderArtwork(track.artwork_url)} title={track.title}/>
           <div className="track-text-info">
-            <h3>{track.title}</h3>
-            <h4>{track.user.username}</h4>
+            <span className="track-title">{track.title}</span><br/>
+            <span className="track-author">{track.user.username}</span>
           </div>
         </div>
       );

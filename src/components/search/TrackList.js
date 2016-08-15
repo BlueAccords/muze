@@ -9,7 +9,6 @@ const TrackList = ({tracks, onSetTrack, activeIndex}) => {
       <thead>
         <tr>
           <th>Title</th>
-          <th>Uploader</th>
           <th>Length</th>
         </tr>
       </thead>
