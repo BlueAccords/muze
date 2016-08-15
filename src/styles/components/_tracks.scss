@@ -22,14 +22,21 @@
     vertical-align: middle;
   }
 
-  // color ever odd child differently
-  tr:nth-child(odd) {
-    background: #EBEBEB;
+  .track-row {
+    // color ever odd child differently
+    &:nth-child(odd) {
+      background: #EBEBEB;
+    }
+
+
+    &:hover {
+      background-color: darken(#BABABA, 15%);
+    }
   }
+  
 
   // style each table cell
   td {
-    background:#FFFFFF;
     padding:20px;
     text-align:left;
     vertical-align:middle;
@@ -38,19 +45,23 @@
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
   }
+
+
+  .track-row {
+    
+  }
 }
 
 // Hide all columns by default
-.table {
-  thead tr th {
-    display: none;
-  }
+// .table {
+//   thead tr th {
+//     display: none;
+//   }
 
-  tbody tr td {
-    display: none;
-  }
-
-}
+//   tbody tr td {
+//     display: none;
+//   }
+// }
 
 // hide table until a search is done
 .active-search {

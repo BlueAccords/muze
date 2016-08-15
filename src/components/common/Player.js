@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import {bindActionCreators} from 'redux';
-import _ from 'lodash';
 
 // try to get local api key or from env
 // if(process.env.NODE_ENV === 'production') {
@@ -219,7 +218,8 @@ class Player extends React.Component {
   // format stream url
   formatStreamURL(track) {
     if(track !== undefined) {
-      return `http://localhost:3030/stream?id=${track.id}`;
+      // return `http://localhost:3030/stream?id=${track.id}`;
+      return `https://muze.blueaccords.com/api/tracks/${track.id}/stream`;
     } else {
       return "";
     }

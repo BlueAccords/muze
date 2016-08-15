@@ -8,7 +8,6 @@ const TrackList = ({tracks, onSetTrack}) => {
     <table className={wrapperClass}>
       <thead>
         <tr>
-          <th>Art</th>
           <th>Title</th>
           <th>Uploader</th>
           <th>Length</th>
