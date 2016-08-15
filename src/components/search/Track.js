@@ -5,7 +5,8 @@ const Track = ({track, playTrack, index, active}) => {
   return (
     <tr className={isTrackActive(active)} onClick={() => {playTrack(index);}}>
       <td>
-        <a href={track.permalink_url} target="_blank">{track.title}</a>
+        <a href={track.permalink_url} target="_blank">{track.title}</a><br/>
+        <a href={track.user.permalink_url}>{track.user.username}</a>
       </td>
       <td>
         <span>

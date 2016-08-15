@@ -26,27 +26,6 @@
   fill: main-color('foreground-light');
 }
 
-// search results icons
-.table .icon {
-  position: relative;
-  bottom: 5.5rem;
-  left: 1.5rem;
-  fill: white;
-  opacity: 0;
-  &:hover {
-    opacity: 1;
-    fill: main-color('foreground-light');
-  }
-}
-
-svg[class^="icon-volume"],
-svg[class*=" icon-volume"] {
-  display: inline-block;
-  height: 1em;
-  width: 1.0625em;
-}
-
-
 .play-btn {
 
 }
@@ -64,6 +43,12 @@ svg[class*=" icon-volume"] {
   background-color: main-color('foreground-light');
 }
 
+// player info section
+.player-info {
+
+}
+
+
 // seek bar times
 
 .seek-time-container {
@@ -76,12 +61,21 @@ svg[class*=" icon-volume"] {
   color: main-color('secondary');
 }
 
-// seek bar controls + track info
-.active-track-container {
-  padding: 0 1rem;
+// // seek bar controls + track info
+// .active-track-container {
+//   padding: 0 1rem;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   align-items: center;
+// }
+// 
+
+.player-info {
+  padding: 0 1rem 1rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -97,4 +91,15 @@ svg[class*=" icon-volume"] {
 
 .track-info {
   color: main-color('foreground-light');
+  display: flex; 
+  align-items: center;   
+    // individual track art
+  .track-art {
+    display: inline;
+  }
+
+  .track-text-info {
+    margin-left: 1rem;
+    display: inline;
+  }
 }

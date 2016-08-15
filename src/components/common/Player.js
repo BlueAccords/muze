@@ -142,8 +142,11 @@ class Player extends React.Component {
     if(track !== undefined && Object.keys(track).length > 0) {
       return (
         <div className="track-info">
-          <h3>{track.title}</h3>
-          <h4>{track.user.username}</h4>
+          <img className="track-art" src={this.placeholderArtwork(track.artwork_url)} title={track.title}/>
+          <div className="track-text-info">
+            <h3>{track.title}</h3>
+            <h4>{track.user.username}</h4>
+          </div>
         </div>
       );
     } else if(track === undefined) {
@@ -242,6 +245,16 @@ class Player extends React.Component {
     }
   }
 
+  // replaces soundtrack artwork with placeholder if one is not available
+  placeholderArtwork(url) {
+    if(!url) return "http://placehold.it/100x100";
+
+    // const regx = /(-large)/;
+    // const str = url.replace(regx, "-crop");
+
+    return url;
+  }
+
   render() {
     const {playlist, activeTrackIndex, playing} = this.props;
     const activeTrack = playlist[activeTrackIndex]; 
@@ -270,8 +283,10 @@ class Player extends React.Component {
             </span>
           </div>
         </div>
-
-        <div className="active-track-container">
+        
+        <div className="player-info">
+          {this.displayTrackInfo(activeTrack)}
+          
           <audio ref="audio" src={this.formatStreamURL(activeTrack)}></audio>
           <div className="player-controls">
             <svg className="icon icon-backward2"><use onClick={this.onPrevTrack} xlinkHref="#icon-backward2"></use></svg>
@@ -282,8 +297,6 @@ class Player extends React.Component {
 
             <svg className="icon icon-forward3"><use onClick={this.onNextTrack} xlinkHref="#icon-forward3"></use></svg>
           </div>
-
-          {this.displayTrackInfo(activeTrack)}
 
           <div className="volume-container">
             {this.displayVolumeIcon()}

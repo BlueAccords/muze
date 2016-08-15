@@ -3,7 +3,7 @@
   margin: 0 auto;
   display: block;
   border-collapse: collapse;
-  
+
   // style table header rows
   thead tr {
     text-align: left;
@@ -91,11 +91,25 @@
   }
 }
 
-// individual track art
-.track-art {
-
+// search results icons
+.table .icon {
+  position: relative;
+  bottom: 5.5rem;
+  left: 1.5rem;
+  fill: white;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+    fill: main-color('foreground-light');
+  }
 }
 
+svg[class^="icon-volume"],
+svg[class*=" icon-volume"] {
+  display: inline-block;
+  height: 1em;
+  width: 1.0625em;
+}
 
 .btn {
   font-size: 100%;
