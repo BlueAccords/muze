@@ -98,10 +98,6 @@
   justify-content: space-between;
   align-items: center;
 
-  &> div {
-    flex-grow: 1;
-  }
-
 }
 
 .player-controls {
@@ -154,5 +150,12 @@
 
   .volume-container {
     flex-basis: 25%;
+  }
+
+  .player-info-container {
+      // done so sizes are even between 3 major player components
+      &> div {
+        flex-grow: 1;
+      }
   }
 }
