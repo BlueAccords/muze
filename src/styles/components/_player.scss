@@ -14,10 +14,12 @@
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+}
 
-
+// active style for when svg is clicked
+svg.icon {
   &:active {
-    fill: darken(main-color('secondary'), 15%);
+    fill: darken(main-color('foreground-light'), 20%);
   }
 }
 
@@ -108,8 +110,12 @@
     display: none;
   }
 
+  .icon-shuffle {
+    fill: darken(main-color('foreground-light'), 65%);
+  }
+
   input[type="checkbox"]#shuffle-input:checked + label > .icon-shuffle {
-    fill: darken(main-color('foreground-light'), 20%);
+    fill: main-color('foreground-light');
   }
 }
 
@@ -135,6 +141,10 @@
   .track-text-info {
     margin-left: 1rem;
     display: inline;
+  }
+
+  .track-author {
+    color: darken(main-color('foreground-light'), 50%);
   }
 }
 

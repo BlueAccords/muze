@@ -70,18 +70,24 @@ class Player extends React.Component {
   // from the previous;
   // additionally, set local state's duration
   componentDidUpdate(prevProps) {
-    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
     const { activeTrackIndex, playlist } = this.props;
 
     if(activeTrackIndex !== undefined && activeTrackIndex !== prevProps.activeTrackIndex) {
       const activeTrack = playlist[activeTrackIndex];
       const duration = Math.floor(activeTrack.duration);
 
+      // update seekbar, set to 0 so it feels more responsive on active track change
+      // rather than having to wait for the audio to start playing to reset to 0.
       this.setState({
+        currentAudioTime: 0,
         currentAudioDuration: duration
       });
-
-      audioElement.play();
+      
+      this.setState({
+        playOnceInitialized: false
+      }, () => {
+        this.play();
+      });
     }
   }
 
@@ -95,6 +101,28 @@ class Player extends React.Component {
     audioElement.removeEventListener('seeked', this.handleSeeked, false);
     audioElement.removeEventListener('volumechange', this.handleVolumeUpdated, false);
     audioElement.removeEventListener('ended', this.handleAudioEnded, false);
+  }
+  
+  // play middleware function to prevent 
+  // The play() request was interrupted by a call to pause() error
+  play() {
+    const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+      if (audioElement) {
+        audioElement.autoplay = true;
+        const p = audioElement.play();
+        if (p && (typeof Promise !== 'undefined') && (p instanceof Promise)) {
+          p.catch((e) => {
+            // error would be caught here but there's not much we can do besides outputting it to console
+            // otherwise it'll just delay playing the next song
+            // console.log(`Caught pending play exception - continuing (${e})`);
+          });
+        }
+      } else {
+        this.setState({
+          playOnceInitialized: true
+        });
+      }
   }
 
   // toggle redux store to show audio is playing
