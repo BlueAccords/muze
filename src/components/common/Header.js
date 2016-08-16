@@ -15,7 +15,8 @@ const Header = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/search">Search</Link></li>
-            <li><a href="soundcloud.com"><img src={scImg} alt="soundcloud attribution"/></a></li>
+            { //<li><a href="soundcloud.com"><img src={scImg} alt="soundcloud attribution"/></a></li>
+            }
           </ul>
         </div>
 
