@@ -19,7 +19,7 @@
 // active style for when svg is clicked
 svg.icon {
   &:active {
-    fill: darken(main-color('foreground-light'), 20%);
+    fill: main-color('accent');
   }
 }
 
@@ -28,11 +28,8 @@ svg.icon {
   fill: main-color('foreground-light');
 }
 
-.play-btn {
-
-}
-
-.previous-btn {
+#icon-pause2 {
+  fill: main-color('accent');
 }
 
 // seek bar
@@ -115,7 +112,7 @@ svg.icon {
   }
 
   input[type="checkbox"]#shuffle-input:checked + label > .icon-shuffle {
-    fill: main-color('foreground-light');
+    fill: main-color('accent');
   }
 }
 

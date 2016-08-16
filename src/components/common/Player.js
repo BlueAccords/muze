@@ -105,6 +105,7 @@ class Player extends React.Component {
   
   // play middleware function to prevent 
   // The play() request was interrupted by a call to pause() error
+  // solution from here https://github.com/Dash-Industry-Forum/dash.js/issues/1372
   play() {
     const audioElement = ReactDOM.findDOMNode(this.refs.audio);
 
@@ -200,11 +201,21 @@ class Player extends React.Component {
     return seconds;
   }
 
-  // conver to mm:ss display time
+  // convert to hh:mm:ss display time
   convertToDisplayTime(seconds) {
-    const dMinutes = Math.floor(seconds / 60);
+    const dHours = Math.floor(seconds / (60 * 60));
+    const dMinutes = Math.floor(seconds % (60 * 60) / 60);
     const dSeconds = (Math.floor(seconds % 60));
-    return dMinutes + ":" + (dSeconds < 10 ? '0' : '') + dSeconds;
+
+    return (dHours > 0)
+      ? dHours + ":" 
+        + (dMinutes < 10 ? "0" : "")
+          + dMinutes + ":"
+        + (dSeconds < 10 ? "0" : "") 
+          + dSeconds
+      : (dMinutes > 0 ? dMinutes + ":" : "0" + ":")
+        + (dSeconds < 10 ? "0" : "") 
+        + dSeconds; 
   }
 
 
