@@ -107,7 +107,8 @@ SearchPage.propTypes = {
 // Get tracks from src/index.js dispatching an action to load tracks into store's state or
 // directly from redux store
 function mapStateToProps(state) {
-  const {tracks, activeTrackIndex} = state.tracks;
+  const {tracks} = state.tracks;
+  const { activeTrackIndex } = state.playlist;
   const isPlaying = state.player.playing;
   return {
     tracks,

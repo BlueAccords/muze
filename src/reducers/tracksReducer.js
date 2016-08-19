@@ -33,16 +33,9 @@ export default function tracksReducer(state = initialState, action) {
     // Set tracks ==============================================================
     case ActionTypes.SET_TRACKS:
       return setTracks(state, action);
-      /*
-        Handles the payload after api call to get a list of tracks from soundcloud
-        Returns a new state with the newly added tracks
-       */
     case ActionTypes.GET_TRACKS_SUCCESS:
       if (action.tracks === undefined) return state;
       return setTracks(state, action);
-
-    case ActionTypes.SET_ACTIVE_TRACK:
-      return setActiveTrack(state, action);
 
     default:
       return state;
@@ -59,10 +52,10 @@ function setTracks(state, action) {
   };
 }
 
-function setActiveTrack(state, action) {
-  const { trackIndex } = action;
+// function setActiveTrack(state, action) {
+//   const { trackIndex } = action;
   
-  return objectAssign({}, state, {
-    activeTrackIndex: trackIndex
-  });
-}
+//   return objectAssign({}, state, {
+//     activeTrackIndex: trackIndex
+//   });
+// }

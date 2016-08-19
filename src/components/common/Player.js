@@ -392,9 +392,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    activeTrackIndex: state.tracks.activeTrackIndex,
+    activeTrackIndex: state.playlist.activeTrackIndex,
     playing: state.player.playing,
-    playlist: state.tracks.playlist
+    playlist: state.playlist.playlists
   };
 }
 

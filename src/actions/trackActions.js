@@ -22,10 +22,6 @@ export function getTracksSuccess(tracks) {
   return {type: ActionTypes.GET_TRACKS_SUCCESS, tracks: tracks};
 }
 
-// sets the active track by playlist index
-export function setActiveTrack(trackIndex) {
- return {type: ActionTypes.SET_ACTIVE_TRACK, trackIndex: trackIndex};
-}
 
 //   // TODO: set up ajax status handlers
 
@@ -49,36 +45,5 @@ export function getTracks(searchParams) {
           dispatch(catchAjaxCall(error));
         throw(error);
       });
-  };
-}
-
-// returns new track index depending on change type and only if its a valid change
-// should only be called within actions
-export function setTrackChangeIndex(trackIndex, changeType) {
-  return function(dispatch, getState) {
-    const { tracks } = getState();
-    const { playlist, activeTrackIndex } = tracks;
-    let newTrackIndex = null;
-
-    // TODO: set constants for song change types
-    switch(changeType) {
-      case 'next':
-        newTrackIndex =  activeTrackIndex + 1;
-        break;
-      case 'prev':
-        newTrackIndex = activeTrackIndex - 1;       
-        break;
-      case 'shuffle':
-        newTrackIndex = Math.floor(Math.random() * playlist.length - 1);
-        break;
-    }
-
-    // check if new index is valid within context of playlist length
-    if(newTrackIndex >= playlist.length || newTrackIndex < 0) {
-      return;
-    } else {
-
-      dispatch(setActiveTrack(newTrackIndex));
-    }
   };
 }
