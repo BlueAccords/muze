@@ -43,23 +43,6 @@ function isTrackActive(active) {
     : "track-row";
 }
 
-// convert soundcloud milliseconds to minutes:seconds
-// function convertToTime(millis) {
-//   const minutes = Math.floor(millis / 60000);
-//   const seconds = ((millis % 60000) / 1000);
-
-//   const dMinutes = Math.floor(seconds % (60 * 60) / 60);
-//   const dMinGreaterThanHour = (seconds % 60);
-//   const dSeconds = Math.floor(seconds);
-
-//   var h = Math.floor(seconds / 3600);
-//   var m = Math.floor(seconds % 3600 / 60);
-//   var s = Math.floor(seconds % 3600 % 60);
-
-//   // return dMinGreaterThanHour + "::" + minutes + ":" + (dSeconds < 10 ? '0' : '') + dSeconds;
-//   return h + ":" + m + ":" + s;
-// }
-
 // convert to hh:mm:ss display time
 // unless less than 1 hour in time then mm:ss instead
 function convertToTime(millis) {

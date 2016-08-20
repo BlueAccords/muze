@@ -98,10 +98,11 @@ class SearchPage extends Component {
 
 // prop validation
 SearchPage.propTypes = {
-  actions: PropTypes.object,
+  actions: PropTypes.object.isRequired,
+  isPlaying: React.PropTypes.bool.isRequired,
   tracks: PropTypes.array,
-  search: PropTypes.object,
-  loading: PropTypes.bool.isRequired
+  activeTrackIndex: React.PropTypes.number,
+  loading: PropTypes.bool
 };
 
 // Get tracks from src/index.js dispatching an action to load tracks into store's state or
@@ -113,7 +114,6 @@ function mapStateToProps(state) {
     tracks,
     isPlaying,
     activeTrackIndex,
-    search: {},
     loading: state.ajaxStatus.tracks > 0
   };
 }
