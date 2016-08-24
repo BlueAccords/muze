@@ -1,0 +1,24 @@
+machine:
+  node:
+    version: 4.5.0
+
+dependencies:
+  override:
+    - npm install
+  cache_directories:
+    - "node_modules"
+
+test:
+  post:
+    - npm test
+
+deployment:
+  production:
+    branch: master
+    owner: blueaccords
+    commands:
+      - ./deploy_prod.sh
+
+general:
+  artifacts:
+    - "dist" # relative to the build directory
