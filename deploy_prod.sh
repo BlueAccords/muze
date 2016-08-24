@@ -7,7 +7,7 @@ cd $DO_MUZE_PATH
 git checkout --force master
 git pull
 
-echo "2. Restart apache"
+echo "2. Restart PM2 Node process"
 sudo npm install
 sudo pm2 restart $DO_PROCESS
 
