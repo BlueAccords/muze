@@ -17,3 +17,4 @@ deployment:
 general:
   artifacts:
     - "dist" # relative to the build directory
+    # Code on repo
