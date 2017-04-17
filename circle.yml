@@ -16,4 +16,4 @@ deployment:
 
 general:
   artifacts:
-    - "prod" # relative to the build directory
+    - "dist" # relative to the build directory
