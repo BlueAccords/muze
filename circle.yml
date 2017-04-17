@@ -16,4 +16,4 @@ deployment:
 
 general:
   artifacts:
-    - "dist" # relative to the build directory
+    - "distant" # relative to the build directory
