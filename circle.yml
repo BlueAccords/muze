@@ -17,4 +17,4 @@ deployment:
 general:
   artifacts:
     - "dist" # relative to the build directory
-	# code on local copy
+	# Code with merge conflict fixed
